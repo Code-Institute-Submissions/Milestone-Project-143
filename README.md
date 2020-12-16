@@ -121,17 +121,24 @@ The  website has an overall ..... The following design choices were made with th
 
 These wireframes were created using [Balsamiq](https://balsamiq.com/) during the planning process for this project. 
 
-- [Home/ Login Page]()
-- [User Profile/Dashboard]()
-- [Client Directory]()
-- [Project Directory]()
-- [Employee Directory]()
+- Home/ Login Page 
+    - [Desktop](project_planning/wireframes/desktop_home.png)
+    - [Tablet](project_planning/wireframes/tablet_home.png)
+    - [Mobile](project_planning/wireframes/mobile_home.png)
+- User Profile/Dashboard
+    - [Desktop](project_planning/wireframes/desktop_profile.png)
+    - [Tablet](project_planning/wireframes/tablet_profile.png)
+    - [Mobile](project_planning/wireframes/mobile_profile.png)
+- [Client/Project/Employee Directories (Same Layout for each)
+    - [Desktop](project_planning/wireframes/desktop_directories.png)
+    - [Tablet](project_planning/wireframes/tablet_directories.png)
+    - [Mobile](project_planning/wireframes/mobile_directories.png)
 - [Project Home Page]()
 - [Admin Home Page]()
 
 ### Flowchart
 
-The intital webpage flowchart done as part of the planning process is saved [here](Project_Planning/flowchart.png)
+The intital webpage flowchart done as part of the planning process is saved [here](project_planning/flowcharts/flowchart.png)
 
 This flowchart was created using [draw.io](https://www.draw.io) to plan and explain the flow and interactions between webpages. 
 
