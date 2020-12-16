@@ -1,7 +1,8 @@
 ## Introduction
 
-[TBC Webpage]() was created by Allanah Murphy,...
+The idea for my Milestone 3 project was to create a Project Management tool. As an engineering consultant, I work as a project manager or as part of a project team on a daily basis. I find often PM software are overly complex and result in PMs not using the correctly (or at all!) which reduces efficiency and the accuracy of business forecasts and resourcing. I wanted to see if I could create something simplier and more useable. 
 
+The live webpage can be found [here](). Note I have created restrictions based on admin rights. To avail of the admin rights and explore the full functionality of the webpage create a user name beginning with "admin_". 
 
 ## Table of Contents
 1. [UX](#ux)
@@ -52,24 +53,55 @@
 
 ## Goals
 
-### Visitor Goals
+### Employee Goals
+- Find tasks assigned to me
+- Find deadline information for tasks
+- Contact the project manager
+- Mark tasks complete when finished
+- Get contact details for other employees
 
-### Site Owner Goals
+### Project Manager Goals
+- Create, assign, edit and delete tasks as required
+- Understand my project and tasks progress
+- Create new projects
+- Create teams for my projects
+- Contact employees and team members
 
-### Website Goals
-
+### Company Goals
+- Provide easy platforrm for employees to use
+- View progress of all projects
+- See details of all projects and clients
+- View all employee details including personal information
 
 ## User Stories
 
-### Visitor Stories
+### Employee Stories
 
-As a visitor to .... I expect/want/need:
+As an employee I expect:
 
-1. .... 
+1. To easily be able to navigate tasks assigned to me and understand the deadline and description. 
+2. To notify my project manager if I have a question relating to a tasks.
+3. To mark tasks complete easily with an automatic notification or email sent to my PM when complete.
+4. To be able to easily find contact details for other employees.
+5. See all tasks assigned to me at one listed chronlogically in order of due date.
+6. Update my current progress on tasks. 
 
-2. ....
+### Project Manager Stories
 
-### Site Owner Stories
+As a Project Manager I expect:
+
+1. To easily understand the progress on all my projects and task assigned.
+2. To notify my project team of any updates to project or tasks.
+3. To create, read, update my projects as needed. 
+4. To create, read, update my clients.
+5. To be able to add and review project details such as start date, end date view, team members etc.
+
+### Company/Admin Goals
+
+As a Company/Owner I expect: 
+
+1. To be able to easily delete clients, projects, tasks.
+2. To see all client detail, project details and employee details. 
 
 ## Design
 
@@ -87,15 +119,21 @@ The  website has an overall ..... The following design choices were made with th
 
 ## Wireframes
 
-These wireframes were created using [Balsamiq](https://balsamiq.com/) during the Scope Plane part of the design and planning process for this project. 
+These wireframes were created using [Balsamiq](https://balsamiq.com/) during the planning process for this project. 
 
-- ....
+- [Home/ Login Page]()
+- [User Profile/Dashboard]()
+- [Client Directory]()
+- [Project Directory]()
+- [Employee Directory]()
+- [Project Home Page]()
+- [Admin Home Page]()
 
 ### Flowchart
 
-- ....
+The intital webpage flowchart done as part of the planning process is saved [here](Project_Planning/flowchart.png)
 
-This flowchart was created using [draw.io](https://www.draw.io) to plan and explain the flow of behavior between the user, JavaScript, data and the modal messages the user sees based on their interactions.
+This flowchart was created using [draw.io](https://www.draw.io) to plan and explain the flow and interactions between webpages. 
 
 # Features
  
