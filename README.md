@@ -7,12 +7,13 @@ The live webpage can be found [here](). Note I have created restrictions based o
 ## Table of Contents
 1. [UX](#ux)
     - [Goals](#goals)
-        - [Visitor Goals](#visitor-goals)
-        - [Site Owner Goals](#site-owner-goals)
-        - [Website Goals](#Website-goals)
+        - [Employee Goals](#employee-goals)
+        - [Project Manager Goals](#project-manager-goals)
+        - [Company Goals](#company-goals)
     - [User Stories](#user-stories)
-        - [Visitor Stories](#visitor-stories)
-        - [Site Owner Stories](#site-owner-stories)
+        - [Visitor Stories](#employee-stories)
+        - [Project Manager Stories](#project-manager-stories)
+        - [Company/Admin Stories](#company-stories)
     - [Design Choices](#design)
     - [Wireframes](#wireframes)
     - [Flowchart](#flowchart)
@@ -28,8 +29,8 @@ The live webpage can be found [here](). Note I have created restrictions based o
     - [Database choice](#database-choice)
     - [Data Storage Types](#data-storage-types)
     - [Collections Data Structure](#collections-data-structure)
-        - [Users Collection](#users-collection)
-        - [Activities Collection](#activities-collection)
+        - [1st Collection](#1st-collection)
+        - ...
 
 4. [Technologies Used](#technologies-used)
 
@@ -96,9 +97,9 @@ As a Project Manager I expect:
 4. To create, read, update my clients.
 5. To be able to add and review project details such as start date, end date view, team members etc.
 
-### Company/Admin Goals
+### Company Stories
 
-As a Company/Owner I expect: 
+As a Company/Admin I expect: 
 
 1. To be able to easily delete clients, projects, tasks.
 2. To see all client detail, project details and employee details. 
@@ -163,7 +164,7 @@ This flowchart was created using [draw.io](https://www.draw.io) to plan and expl
 
 ### Data Storage Types
 
-### Collections Data Structure & Documents
+### Collections Data Structure
 
 #### 1st Collection....
 
