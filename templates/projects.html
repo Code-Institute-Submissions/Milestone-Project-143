@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Dashboard</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
     {% for project in projects %}
         {{ project.project_name }}<br>
         {{ project.project_description }}<br>
@@ -14,5 +8,5 @@
         {{ project.project_name }}<br>
         {{ project.start_date }}<br>
     {% endfor %}
-</body>
-</html>
+
+{% endblock %}
