@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Dashboard</title>
+</head>
+<body>
+    {% for project in projects %}
+        {{ project.project_name }}<br>
+        {{ project.project_description }}<br>
+        {{ project.client_id }}<br>
+        {{ project.project_no }}<br>
+        {{ project.project_name }}<br>
+        {{ project.start_date }}<br>
+    {% endfor %}
+</body>
+</html>
