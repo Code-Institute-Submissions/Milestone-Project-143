@@ -82,12 +82,31 @@ header {
     background-color: rgba(255, 255, 255, 0.75);
 }
 
+.btn {
+    background-color: #9e007e;
+    color: #ffffff;
+}
 
 /***Media Queries for Smaller devices***/
 
 @media (max-width: 576px) { 
         .largeicon {
         font-size: 20px;
+    }
+
+    body, html {
+        font-size: 14px;
+    }
+    
+}
+
+@media (max-width: 350px) { 
+    body, html {
+        font-size: 12px;
+    }
+
+    .largeicon {
+        font-size: 16px;
     }
     
 
