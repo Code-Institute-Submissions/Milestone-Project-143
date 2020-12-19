@@ -27,7 +27,7 @@ body {
 }
 
 .whitetext {
-    color: #ffffff !important;
+    color: #ffffff;
 }
 
 .largetext {
@@ -108,6 +108,15 @@ header {
   background-size: cover;
   position: relative;
 }
+
+.btnlink {
+    text-decoration: none;
+}
+
+.btnlink:hover {
+    color: #333333;
+}
+
 
 /******************************Registeration Page******************************/
 
