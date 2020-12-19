@@ -5,16 +5,71 @@
     <div class="row px-0">
         <div class="heroimage p-0">
         <div class="px-0">  
-            <form class="card col-10 offset-1 col-md-6 offset-md-3 overlay" method="POST" action="{{ url_for('register') }}" style="position:absolute; top: 25%; z-index: 3;">
-                    <h5 class="card-header darktext largetext mx-auto pt-3 text-center">Employee Registration</h5>
-                    <div class="card-body p-5">
+            <form class="card col-10 offset-1 col-md-6 offset-md-3 overlay" method="POST" action="{{ url_for('register') }}" style="position:absolute; top: 10%; z-index: 3;">
+                    <h5 class="card-header darktext largetext mx-auto pt-4 text-center">Employee Registration</h5>
+                    <div class="card-body p-3 p-md-5">
+                        <!--First Name-->
+                        <div class="mb-2 row">
+                            <div class="col-1 text-center p-0">
+                                <i class="fas fa-user align-middle largeicon"></i>
+                            </div>
+                            <div class="col-11 p-0 px-1">
+                                <input type="text" name="first_name" pattern="^[a-zA-Z]{2,20}$" class="form-control nameinput" id="first_name" placeholder="First Name" minlength="2" maxlength="20" required>
+                                <input type="text" name="last_name" pattern="^[a-zA-Z]{2,25}$" class="form-control nameinput" id="last_name" placeholder="Last Name" minlength="2" maxlength="25" required>
+                            </div>
+                        </div>
+                        <!--Phone Number-->
+                        <div class="mb-2 row">
+                            <div class="col-1 text-center p-0">
+                                <i class="fas fa-phone align-middle largeicon"></i>
+                            </div>
+                            <div class="col-11 p-0 px-1">
+                                <input type="tel" name="phone" pattern="^[0-9]{5,15}$" class="form-control" id="phone" placeholder="Company Phone No." minlength="5" maxlength="15" required>
+                            </div>
+                        </div>
                         <!--Enter Email Input-->
-                        <div class="mb-4 row">
+                        <div class="mb-2 row">
                             <div class="col-1 text-center p-0">
                                 <i class="fas fa-envelope align-middle largeicon"></i>
                             </div>
                             <div class="col-11 p-0 px-1">
                                 <input type="email" name="email" class="form-control" id="email" placeholder="john.doe@murphyeng.com">
+                            </div>
+                        </div>
+                        <!--Employee_Id-->
+                        <div class="mb-2 row">
+                            <div class="col-1 text-center p-0">
+                                <i class="fas fa-id-card align-middle largeicon"></i>
+                            </div>
+                            <div class="col-11 p-0 px-1">
+                                <input type="number" name="employee_id" pattern="^[0-9]{1,5}$" class="form-control" id="employee_id" placeholder="Employee ID" minlength="1" maxlength="5" required>
+                            </div>
+                        </div>
+                        <!--DOB-->
+                        <div class="mb-2 row">
+                            <div class="col-1 text-center p-0">
+                                <i class="fas fa-calendar align-middle largeicon"></i>
+                            </div>
+                            <div class="col-11 p-0 px-1">
+                                <input type="date" name="dob" class="form-control" id="dob" placeholder="Date of Birth" required>
+                            </div>
+                        </div>
+                        <!--Manager_Id-->
+                        <div class="mb-2 row">
+                            <div class="col-1 text-center p-0">
+                                <i class="far fa-id-card align-middle largeicon"></i>
+                            </div>
+                            <div class="col-11 p-0 px-1">
+                                <input type="number" name="manager_id" pattern="^[0-9]{1,5}$" class="form-control" id="manager_id" placeholder="Manager's ID" minlength="1" maxlength="5" required>
+                            </div>
+                        </div>
+                        <!--Job Title-->
+                        <div class="mb-2 row">
+                            <div class="col-1 text-center p-0">
+                                <i class="fas fa-sitemap align-middle largeicon"></i>
+                            </div>
+                            <div class="col-11 p-0 px-1">
+                                <input type="text" name="title" pattern="^[a-zA-Z]{5,25}$" class="form-control" id="title" placeholder="Job Title" minlength="5" maxlength="25" required>
                             </div>
                         </div>
                         <!--Create Password Input-->
@@ -23,12 +78,12 @@
                                 <i class="fas fa-lock align-middle largeicon"></i>
                             </div>
                             <div class="col-11 p-0 px-1">
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Create Password">
+                                <input type="password" name="password" pattern="^[a-zA-Z0-9]{5,15}$" class="form-control" id="password" placeholder="Create Password" minlength="5" maxlength="15" required>
                             </div>
                         </div>
                         <!--Registration Submit Button-->
                         <div class="row">
-                            <button type="submit" class="btn btn-purple col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mediumtext">
+                            <button type="submit" class="btn btn-purple col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mediumtext">
                                 Register Now <i class="fas fa-sign-in-alt"></i>
                             </button>
                         </div>

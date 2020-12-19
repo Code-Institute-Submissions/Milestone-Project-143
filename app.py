@@ -34,6 +34,31 @@ def get_projects():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        # check if email already exists within db
+        existing_email = mongo.db.employees.find_one(
+            {"email": request.form.get("email").lower()})
+
+        if existing_email:
+            flash("Email already in use, try logging in instead.")
+            return redirect(url_for("register"))
+
+        register = {
+            "first_name": request.form.get("first_name").lower(),
+            "last_name": request.form.get("last_name").lower(),
+            "phone": request.form.get("phone").lower(),
+            "email": request.form.get("email").lower(),
+            "employee_id": request.form.get("employee_id"),
+            "dob": request.form.get("dob"),
+            "manager_id": request.form.get("manager_id"),
+            "title": request.form.get("title").lower(),
+            "password": generate_password_hash(request.form.get("password"))
+        }
+        mongo.db.employees.insert_one(register)
+
+        # put the new user into 'session' cookie
+        session["employee"] = request.form.get("email").lower()
+        flash("Registration Successful!")
     return render_template("register.html")
 
 
