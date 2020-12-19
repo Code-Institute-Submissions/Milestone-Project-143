@@ -59,6 +59,7 @@ def register():
         # put the new user into 'session' cookie
         session["employee"] = request.form.get("email").lower()
         flash("Registration Successful!")
+        return redirect(url_for("profile", email=session["employee"]))
     return render_template("register.html")
 
 
@@ -76,6 +77,7 @@ def login():
                     session["employee"] = request.form.get("email").lower()
                     flash("Welcome {}!".format(
                         existing_user["first_name"].capitalize()))
+                    return redirect(url_for("profile", email=session["employee"]))
             else:
                 # invalid password match
                 flash("Incorrect email and/or Password")
@@ -87,6 +89,15 @@ def login():
             return redirect(url_for("login"))
 
     return render_template("login.html")
+
+@app.route("/profile/<email>", methods=["GET", "POST"])
+def profile(email):
+    # grab the session user's first name from db
+    first_name = mongo.db.employees.find_one(
+        {"email": session["employee"]})["first_name"]
+    last_name = mongo.db.employees.find_one(
+        {"email": session["employee"]})["last_name"]
+    return render_template("profile.html", first_name=first_name.capitalize(), last_name=last_name.capitalize(), )
 
 
 if __name__ == "__main__":
