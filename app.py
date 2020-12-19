@@ -90,6 +90,7 @@ def login():
 
     return render_template("login.html")
 
+
 @app.route("/profile/<email>", methods=["GET", "POST"])
 def profile(email):
     # grab the session user's first name from db
@@ -97,7 +98,20 @@ def profile(email):
         {"email": session["employee"]})["first_name"]
     last_name = mongo.db.employees.find_one(
         {"email": session["employee"]})["last_name"]
-    return render_template("profile.html", first_name=first_name.capitalize(), last_name=last_name.capitalize(), )
+
+    if session["employee"]:
+        return render_template("profile.html", 
+                first_name=first_name.capitalize(), 
+                last_name=last_name.capitalize())  
+    return redirect(url_for("login"))
+
+
+@app.route("/logout")
+def logout():
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("employee")
+    return redirect(url_for("login"))
 
 
 if __name__ == "__main__":
