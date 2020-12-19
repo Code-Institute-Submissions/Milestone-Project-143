@@ -34,8 +34,61 @@ body {
     font-size: 1.5rem;
 }
 
-body {
+body, html {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
+    margin:0;
+    height:100%
 }
 
+/***Icon Styling***/
+
+.largeicon {
+    font-size: 32px;
+}
+
+/***Header***/
+
+header {
+   height: 60px;
+}
+
+/***Registeration Page***/
+
+.heroimage {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/cranes_hero.jpg"); 
+  height: calc(100vh - 60px);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.herooverlay {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.card-header {
+    background-color: rgba(255, 255, 255, 0.0);
+    
+}
+
+.overlay {
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+
+/***Media Queries for Smaller devices***/
+
+@media (max-width: 576px) { 
+        .largeicon {
+        font-size: 20px;
+    }
+    
+
+}

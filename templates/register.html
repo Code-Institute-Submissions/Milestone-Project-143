@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row px-0">
+        <div class="heroimage">
+        <div class="herotext px-0">  
+            <form class="card col-10 offset-1 col-md-6 offset-md-3 overlay" method="POST" action="{{ url_for('register') }}" style="position:absolute; top: 25%; z-index: 3;">
+                    <h5 class="card-header darktext mediumtext mx-auto">Employee Registration</h5>
+                    <div class="card-body">
+                        <!--Enter Email Input-->
+                        <div class="mb-3 row">
+                            <div class="col-1 text-center">
+                                <i class="fas fa-envelope align-middle largeicon"></i>
+                            </div>
+                            <div class="col-11">
+                                <input type="email" name="email" class="form-control" id="email" placeholder="john.doe@murphyeng.com">
+                            </div>
+                        </div>
+                        <!--Create Password Input-->
+                        <div class="mb-3 row">
+                            <div class="col-1 text-center">
+                                <i class="fas fa-lock align-middle largeicon"></i>
+                            </div>
+                            <div class="col-11">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Create Password">
+                            </div>
+                        </div>
+                        <!--Registration Submit Button-->
+                        <div class="row">
+                            <button type="submit" class="btn btn-success col-6 offset-3 mediumtext">
+                                Register Now <i class="fas fa-sign-in-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+        </div>
+        
+
+    </div>
+</div>
+
+{% endblock %}
