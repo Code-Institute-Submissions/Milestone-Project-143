@@ -37,6 +37,12 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/clients")
+def clients():
+    clients = mongo.db.clients.find()
+    return render_template("client.html", clients=clients)
+
+
 @app.route("/get_projects")
 def get_projects():
     projects = mongo.db.projects.find()

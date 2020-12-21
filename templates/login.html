@@ -4,8 +4,9 @@
 <div class="container-fluid">
     <div class="row px-0">
         <div class="heroimage p-0">
-        <div class="px-0">  
-            <form class="card col-10 offset-1 col-md-6 offset-md-3 overlay" method="POST" action="{{ url_for('login') }}" style="position:absolute; top: 10%; z-index: 3;">
+            <div class="px-0">
+                <form class="card col-10 offset-1 col-md-6 offset-md-3 overlay" method="POST"
+                    action="{{ url_for('login') }}" style="position:absolute; top: 10%; z-index: 3;">
                     <h5 class="card-header darktext largetext mx-auto pt-4 text-center">Employee Log In</h5>
                     <div class="card-body p-3 p-md-5">
                         <!--Enter Email Input-->
@@ -14,7 +15,8 @@
                                 <i class="fas fa-envelope align-middle largeicon"></i>
                             </div>
                             <div class="col-11 p-0 px-1">
-                                <input type="email" name="email" class="form-control" id="email" placeholder="john.doe@murphyeng.com">
+                                <input type="email" name="email" class="form-control" id="email"
+                                    placeholder="john.doe@murphyeng.com">
                             </div>
                         </div>
                         <!--Create Password Input-->
@@ -23,24 +25,26 @@
                                 <i class="fas fa-lock align-middle largeicon"></i>
                             </div>
                             <div class="col-11 p-0 px-1">
-                                <input type="password" name="password" pattern="^[a-zA-Z0-9]{5,15}$" class="form-control" id="password" placeholder="Create Password" minlength="5" maxlength="15" required>
+                                <input type="password" name="password" pattern="^[a-zA-Z0-9]{5,15}$"
+                                    class="form-control" id="password" placeholder="Create Password" minlength="5"
+                                    maxlength="15" required>
                             </div>
                         </div>
                         <!--Registration Submit Button-->
                         <div class="row">
-                            <button type="submit" class="btn btn-purple col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mediumtext">
+                            <button type="submit"
+                                class="btn btn-purple col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mediumtext">
                                 Log In <i class="fas fa-sign-in-alt"></i>
                             </button>
                         </div>
                         <div class="row text-center pt-3">
-                            <div class="col-10 offset-1 smalltext">Not Registered? Please click <a class="embeddedlink" href="{{ url_for('register')}}">here</a>.</div>
+                            <div class="col-10 offset-1 smalltext">Not Registered? Please click <a class="embeddedlink"
+                                    href="{{ url_for('register')}}">here</a>.</div>
                         </div>
                     </div>
-            </form>
+                </form>
+            </div>
         </div>
-        </div>
-        
-
     </div>
 </div>
 

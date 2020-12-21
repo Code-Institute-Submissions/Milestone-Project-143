@@ -24,6 +24,11 @@ body {
     background-color: #dba1cc;
 }
 
+.purple20 {
+    background-color: #edd0e5;
+}
+
+
 .green60 {
     background-color: #b2d68d;
 }
@@ -35,7 +40,7 @@ body {
 /******************************Text Styles******************************/
 
 .darktext {
-    color: #333333 !important;
+    color: #333333;
 }
 
 .whitetext {
@@ -220,6 +225,14 @@ header {
 
 .showContent p {
     height: auto;
+}
+
+/******************************Client Directory******************************/
+
+.accordion-button:not(.collapsed) {
+    background-color: #9e007e;
+    color: white;
+    border: 0px;
 }
 
 /******************************Media Queries for Smaller devices******************************/
