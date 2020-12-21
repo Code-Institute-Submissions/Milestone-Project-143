@@ -5,6 +5,8 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
+import boto3
 if os.path.exists("env.py"):
     import env
 
@@ -16,8 +18,17 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
-
 mongo = PyMongo(app)
+
+BUCKET_NAME = "pmtoolms3"
+S3_KEY = os.environ.get("S3_ACCESS_KEY")
+S3_SECRET = os.environ.get("S3_SECRET_ACCESS_KEY")
+S3_LOCATION = 'http://{}.s3.amazonaws.com/'.format(BUCKET_NAME)
+
+s3 = boto3.client( "s3",
+   aws_access_key_id = S3_KEY,
+   aws_secret_access_key = S3_SECRET)
+
 
 
 @app.route("/")
@@ -43,6 +54,19 @@ def register():
             flash("Email already in use, try logging in instead.")
             return redirect(url_for("login"))
 
+        # Upload Image to AWS
+        img = request.files["file"]
+        if img:
+                filename = secure_filename(img.filename)
+                img.save(filename)
+                s3.upload_file(
+                    Bucket = BUCKET_NAME,
+                    Filename=filename,
+                    Key = filename
+                )
+        imglocation = "{}{}".format(S3_LOCATION, filename)
+
+        # Insert Info into Mondo DB
         register = {
             "first_name": request.form.get("first_name").lower(),
             "last_name": request.form.get("last_name").lower(),
@@ -52,7 +76,8 @@ def register():
             "dob": request.form.get("dob"),
             "manager_id": request.form.get("manager_id"),
             "title": request.form.get("title").lower(),
-            "password": generate_password_hash(request.form.get("password"))
+            "password": generate_password_hash(request.form.get("password")),
+            "imgurl": imglocation
         }
         mongo.db.employees.insert_one(register)
 
