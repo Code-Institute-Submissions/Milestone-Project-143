@@ -20,9 +20,18 @@ body {
     background-color: #333333;
 }
 
-.purple80 {
-    background-color: #b7449a;
+.purple40 {
+    background-color: #dba1cc;
 }
+
+.green60 {
+    background-color: #b2d68d;
+}
+
+.blue60 {
+    background-color: #99e1f4;
+}
+
 /******************************Text Styles******************************/
 
 .darktext {
@@ -176,7 +185,6 @@ header {
 /******************************Profile******************************/
 
 .boxoverlay {
-    background-color: rgba(255, 255, 255, 0.85);
     color: #333333;
     border-radius: 5px;
     padding: 5px;
