@@ -1,54 +1,84 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container-fluid  purple80">
-<div class="container container-profile">
-    <div class="row py-5">
-        <div class="row">
-            <div class="col-3 boxoverlay mb-1">
-                <div class="text-center pt-2">
-                    <h4 class="mediumtext mb-0 darktext">Employee Profile</h4>
+    <div class="container container-profile">
+        <div class="row py-5">
+                <div class="col-12 col-md-4 col-lg-3 mb-1 boxoverlay">
+                    <div class="text-center pt-2">
+                        <h4 class="mediumtext mb-0 darktext">Profile</h4>
+                    </div>
+                    <div class="imgcontainer p-2">
+                        <img src="{{ imgurl }}" alt="">
+                    </div>
                     <hr>
+                    <div class="p-2">
+                        <p class="mb-0"><strong>Name:</strong></p>
+                        <p>{{ first_name }} {{ last_name }}</p>
+                        <p class="mb-0"><strong>Position:</strong></p>
+                        <p>{{ title }}</p>
+                        <p class="mb-0"><strong>Email:</strong></p>
+                        <p>{{ email }}</p>
+                        <p class="mb-0"><strong>Phone:</strong></p>
+                        <p>{{ phone }}</p>
+                        <p class="mb-0"><strong>Manager: </strong></p>
+                        <p class="mb-0"><a class="link darktext"
+                                href="{{ url_for('profile', email=(manageremail) )}}">{{ managername }}</a></p>
+                    </div>
                 </div>
-                <div class="imgcontainer p-2">
-                    <img src="{{ imgurl }}" alt="">
-                </div>
-                <hr>
-                <div class="p-2">
-                <p><strong>Name:</strong> {{ first_name }} {{ last_name }}</p>
-                <p><strong>Position:</strong> {{ title }}</p>
-                <p><strong>Email:</strong> {{ email }}</p>
-                <p><strong>Phone:</strong> {{ phone }}</p>
-                <p><strong>Manager: </strong><a href="{{ url_for('profile', email=(manageremail) )}}">{{ managername }}</a></p>
-                </div>
-            </div>
-            <div class="col-9">
-                <div class="row">
-                    <div class="col-7">
-                        <div class="row p-1 pt-0">
-                            <div class="col-12 boxoverlay">
-                                Project 1
+            <div class="col-12 col-md-8 col-lg-9 p-0">
+                <div class="row p-0 m-0">
+                    <div class="col-12 col-lg-7 p-0">
+                        <div class="row pt-4 pt-md-0 m-0 px-md-2">
+                            <div class="col-12 boxoverlay pt-2">
+                                <div class="text-center pt-2">
+                                    <h4 class="mediumtext mb-1 darktext">{{ first_name }}'s Projects</h4>
+                                </div>
                             </div>
                         </div>
-                        <div class="row p-1">
+                        <div class="row py-1 px-md-2 m-0">
                             <div class="col-12 boxoverlay">
-                                Project 2
+                                <h4 class="smalltext my-1 darktext">Project Name 1</h4>
+                                <hr class="my-1">
+                                <p class="mb-1"><strong>Client:</strong></p>
+                                <p class="mb-1"><strong>Fee:</strong></p>
+                                <p class="mb-1"><strong>Start date:</strong></p>
+                                <p class="mb-1"><strong>End Date:</strong></p>
+                                <div class="additionalcontent">
+                                    <p class="mb-1"><strong>Project Description:</strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                                        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                                        anim id est laborum.</p>
+                                    
+                                    <a href="javascript:void(0)" class="readmore-btn mb-3">Read More ▼</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-5">
-                        <div class="row p-1 pt-0">
-                            <div class="col-12 boxoverlay">
-                                Tasks To Do
+                    <div class="col-12 col-lg-5">
+                        <div class="row pb-1 pt-0 px-md-2 px-lg-0">
+                            <div class="col-12 boxoverlay pt-2">
+                                <div class="text-center pt-2">
+                                    <h4 class="mediumtext mb-1 darktext">Tasks</h4>
+                                </div>
                             </div>
                         </div>
-                        <div class="row p-1">
+                        <div class="row pb-1 pt-0 px-md-2 px-lg-0">
                             <div class="col-12 boxoverlay">
-                                Tasks In Progress
+                                <h4 class="smalltext my-1 darktext">To Do</h4>
+                                <hr class="my-1">
                             </div>
                         </div>
-                        <div class="row p-1">
+                        <div class="row py-1 px-md-2 px-lg-0">
                             <div class="col-12 boxoverlay">
-                                Tasks Complete
+                                <h4 class="smalltext my-1 darktext">In Progress</h4>
+                                <hr class="my-1">
+                            </div>
+                        </div>
+                        <div class="row py-1 px-md-2 px-lg-0">
+                            <div class="col-12 boxoverlay">
+                                <h4 class="smalltext my-1 darktext">Complete</h4>
+                                <hr class="my-1">
                             </div>
                         </div>
                     </div>
@@ -57,7 +87,6 @@
 
         </div>
     </div>
-</div>
 </div>
 
 {% endblock %}

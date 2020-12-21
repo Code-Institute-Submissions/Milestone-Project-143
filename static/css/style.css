@@ -187,14 +187,32 @@ header {
 }
 
 .imgcontainer {
-    max-height: 300px;
+    max-height: 350px;
     overflow: hidden;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .imgcontainer img {
     width: 100%;
 }
 
+.link {
+    text-decoration: none;
+}
+
+.link:hover {
+    font-weight: 700;
+}
+
+.additionalcontent p {
+    height: 0px;
+    overflow: hidden;
+}
+
+.showContent p {
+    height: auto;
+}
 
 /******************************Media Queries for Smaller devices******************************/
 
