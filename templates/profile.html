@@ -2,15 +2,24 @@
 {% block content %}
 <div class="container-fluid  purple80">
 <div class="container container-profile">
-    <div class="row px-0">
-        <div class="col-12 text-center">
-            <h3 class="darktext mediumtext">
-                {{ first_name }} {{ last_name }}'s Profile
-            </h3>
-        </div>
+    <div class="row py-5">
         <div class="row">
             <div class="col-3 boxoverlay mb-1">
-                Employee Profile Details
+                <div class="text-center pt-2">
+                    <h4 class="mediumtext mb-0 darktext">Employee Profile</h4>
+                    <hr>
+                </div>
+                <div class="imgcontainer p-2">
+                    <img src="{{ imgurl }}" alt="">
+                </div>
+                <hr>
+                <div class="p-2">
+                <p><strong>Name:</strong> {{ first_name }} {{ last_name }}</p>
+                <p><strong>Position:</strong> {{ title }}</p>
+                <p><strong>Email:</strong> {{ email }}</p>
+                <p><strong>Phone:</strong> {{ phone }}</p>
+                <p><strong>Manager: </strong><a href="{{ url_for('profile', email=(manageremail) )}}">{{ managername }}</a></p>
+                </div>
             </div>
             <div class="col-9">
                 <div class="row">

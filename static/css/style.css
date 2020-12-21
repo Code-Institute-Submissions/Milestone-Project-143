@@ -53,7 +53,7 @@ body {
 
 .smalltext {
     font-family: 'Roboto', sans-serif;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 1.25rem;
 }
 
@@ -84,8 +84,13 @@ body, html {
 /******************************Icon Styling******************************/
 
 .largeicon {
-    font-size: 32px;
+    font-size: 2rem;
 }
+
+.mediumicon {
+    font-size: 1.4rem;
+}
+
 
 /******************************Blockdividers******************************/
 
@@ -181,6 +186,16 @@ header {
     min-height: calc(100vh - 86px);
 }
 
+.imgcontainer {
+    max-height: 300px;
+    overflow: hidden;
+}
+
+.imgcontainer img {
+    width: 100%;
+}
+
+
 /******************************Media Queries for Smaller devices******************************/
 
 @media (max-width: 1100px) {
@@ -191,10 +206,7 @@ header {
 }
 
 @media (max-width: 576px) { 
-        .largeicon {
-        font-size: 18px;
-    }
-
+        
     body, html {
         font-size: 14px;
     }
@@ -202,9 +214,7 @@ header {
 }
 
 @media (max-width: 350px) { 
-      .largeicon {
-        font-size: 15px;
-    }
+
     body, html {
         font-size: 12px;
     } 

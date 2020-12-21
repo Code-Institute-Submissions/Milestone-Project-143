@@ -25,10 +25,10 @@ S3_KEY = os.environ.get("S3_ACCESS_KEY")
 S3_SECRET = os.environ.get("S3_SECRET_ACCESS_KEY")
 S3_LOCATION = 'http://{}.s3.amazonaws.com/'.format(BUCKET_NAME)
 
-s3 = boto3.client( "s3",
-   aws_access_key_id = S3_KEY,
-   aws_secret_access_key = S3_SECRET)
-
+s3 = boto3.client(
+    "s3",
+    aws_access_key_id=S3_KEY,
+    aws_secret_access_key=S3_SECRET)
 
 
 @app.route("/")
@@ -57,13 +57,13 @@ def register():
         # Upload Image to AWS
         img = request.files["file"]
         if img:
-                filename = secure_filename(img.filename)
-                img.save(filename)
-                s3.upload_file(
-                    Bucket = BUCKET_NAME,
-                    Filename=filename,
-                    Key = filename
-                )
+            filename = secure_filename(img.filename)
+            img.save(filename)
+            s3.upload_file(
+                Bucket=BUCKET_NAME,
+                Filename=filename,
+                Key=filename
+            )
         imglocation = "{}{}".format(S3_LOCATION, filename)
 
         # Insert Info into Mondo DB
@@ -98,11 +98,13 @@ def login():
         if existing_user:
             # ensure hashed password matches user input
             if check_password_hash(
-                existing_user["password"], request.form.get("password")):
-                    session["employee"] = request.form.get("email").lower()
-                    flash("Welcome {}!".format(
-                        existing_user["first_name"].capitalize()))
-                    return redirect(url_for("profile", email=session["employee"]))
+                existing_user["password"],
+                request.form.get("password")):
+                session["employee"] = request.form.get("email").lower()
+                flash("Welcome {}!".format(
+                    existing_user["first_name"]
+                    .capitalize()))
+                return redirect(url_for("profile", email=session["employee"]))
             else:
                 # invalid password match
                 flash("Incorrect email and/or Password")
@@ -120,14 +122,34 @@ def login():
 def profile(email):
     # grab the session user's first name from db
     first_name = mongo.db.employees.find_one(
-        {"email": session["employee"]})["first_name"]
+        {"email": email})["first_name"]
     last_name = mongo.db.employees.find_one(
-        {"email": session["employee"]})["last_name"]
+        {"email": email})["last_name"]
+    imgurl = mongo.db.employees.find_one(
+        {"email": email})["imgurl"]
+    title = mongo.db.employees.find_one(
+        {"email": email})["title"]
+    email = mongo.db.employees.find_one(
+        {"email": email})["email"]
+    phone = mongo.db.employees.find_one(
+        {"email": email})["phone"]
+    managerid = mongo.db.employees.find_one(
+        {"email": email})["manager_id"]
+    managername = ' '.join([mongo.db.employees.find_one
+                           ({"employee_id": managerid})["first_name"],
+                            mongo.db.employees.find_one(
+                            {"employee_id": managerid})["last_name"]])
+    manageremail = mongo.db.employees.find_one(
+        {"employee_id": managerid})["email"]
 
     if session["employee"]:
-        return render_template("profile.html", 
-                first_name=first_name.capitalize(), 
-                last_name=last_name.capitalize())  
+        return render_template("profile.html",
+                               first_name=first_name.capitalize(),
+                               last_name=last_name.capitalize(),
+                               imgurl=imgurl, title=title,
+                               phone=phone, email=email,
+                               managername=managername,
+                               manageremail=manageremail)
     return redirect(url_for("login"))
 
 
@@ -142,4 +164,4 @@ def logout():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True)  ##Change to false below submission
+            debug=True)  #Change to false below submission
