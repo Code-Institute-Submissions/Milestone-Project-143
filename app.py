@@ -40,7 +40,8 @@ def index():
 @app.route("/clients")
 def clients():
     clients = mongo.db.clients.find()
-    return render_template("client.html", clients=clients)
+    projects = mongo.db.projects.find()
+    return render_template("client.html", clients=clients, projects=projects)
 
 
 @app.route("/get_projects")
