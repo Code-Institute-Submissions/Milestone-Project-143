@@ -20,6 +20,9 @@ body {
     background-color: #333333;
 }
 
+.purple80 {
+    background-color: #b7449a;
+}
 /******************************Text Styles******************************/
 
 .darktext {
@@ -95,7 +98,7 @@ body, html {
 /******************************Header******************************/
 
 header {
-   height: 60px;
+   height: 86px;
 }
 
 /******************************Home Page******************************/
@@ -163,6 +166,19 @@ header {
     text-decoration: none;
     font-weight: 700;
     color: #9e007e;
+}
+
+/******************************Profile******************************/
+
+.boxoverlay {
+    background-color: rgba(255, 255, 255, 0.85);
+    color: #333333;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.container-profile {
+    min-height: calc(100vh - 86px);
 }
 
 /******************************Media Queries for Smaller devices******************************/
