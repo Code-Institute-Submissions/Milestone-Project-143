@@ -235,6 +235,38 @@ def project_search():
     return render_template("projects.html", projects=projects)
 
 
+# Edit Project Functionality and page rendering
+@app.route("/edit_project/<project_no>", methods=["GET", "POST"])
+def edit_project(project_no):
+    int_project_no = int(project_no)
+    if request.method == "POST":
+        # Insert Info into Mondo DB
+        projectregister = {
+            "project_no": int_project_no,
+            "project_name": request.form.get("project_name").lower(),
+            "project_description":
+            request.form.get("project_description").lower(),
+            "client_id": request.form.get("client_id"),
+            "project_manager_id": request.form.get("manager_id"),
+            "team": request.form.getlist("team"),
+            "start_date": request.form.get("startdate"),
+            "end_date": request.form.get("enddate"),
+            "fee":  request.form.get("fee")
+        }
+        mongo.db.projects.update(
+                                 {"project_no": int_project_no},
+                                 projectregister)
+        flash("Project Update Successful!")
+        return redirect(url_for("get_projects"))
+    clients = list(mongo.db.clients.find())
+    employees = list(mongo.db.employees.find({}, {"password": 0}))
+    project = mongo.db.projects.find_one({"project_no": int_project_no})
+    print(project)
+    return render_template("edit_project.html",
+                           project=project,
+                           clients=clients, employees=employees)
+
+
 # Render Employee Profile
 @app.route("/profile/<email>", methods=["GET", "POST"])
 def profile(email):
