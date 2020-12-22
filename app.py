@@ -1,9 +1,8 @@
 import os
 from flask import (
-    Flask, flash, render_template, 
+    Flask, flash, render_template,
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
-from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import boto3
@@ -13,13 +12,14 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 
-
+# Setup Connection to MongoDB
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+# Setup Connection Variables for AWS server for image storage
 BUCKET_NAME = "pmtoolms3"
 S3_KEY = os.environ.get("S3_ACCESS_KEY")
 S3_SECRET = os.environ.get("S3_SECRET_ACCESS_KEY")
@@ -31,26 +31,45 @@ s3 = boto3.client(
     aws_secret_access_key=S3_SECRET)
 
 
+# Home Page Rendering
 @app.route("/")
 @app.route("/index")
 def index():
     return render_template("index.html")
 
 
-@app.route("/clients")
-def clients():
-    clients = mongo.db.clients.find()
-    projects = mongo.db.projects.find()
-    print(clients)
-    return render_template("client.html", clients=clients, projects=projects)
+# Login Page
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        # check if username exists in db
+        existing_user = mongo.db.employees.find_one(
+            {"email": request.form.get("email").lower()})
+
+        if existing_user:
+            # ensure hashed password matches user input
+            if check_password_hash(
+                existing_user["password"],
+                request.form.get("password")):
+                session["employee"] = request.form.get("email").lower()
+                flash("Welcome {}!".format(
+                    existing_user["first_name"]
+                    .capitalize()))
+                return redirect(url_for("profile", email=session["employee"]))
+            else:
+                # invalid password match
+                flash("Incorrect email and/or Password")
+                return redirect(url_for("login"))
+
+        else:
+            # username doesn't exist
+            flash("Incorrect email and/or Password")
+            return redirect(url_for("login"))
+
+    return render_template("login.html")
 
 
-@app.route("/get_projects")
-def get_projects():
-    projects = mongo.db.projects.find()
-    return render_template("projects.html", projects=projects)
-
-
+# Registration Page
 @app.route("/register", methods=["GET", "POST"])
 def register():
     employees = mongo.db.employees.distinct("employee_id")
@@ -98,6 +117,16 @@ def register():
     return render_template("register.html", employees=employees)
 
 
+# Client Directory
+@app.route("/clients")
+def clients():
+    clients = mongo.db.clients.find()
+    projects = mongo.db.projects.find()
+    print(clients)
+    return render_template("client.html", clients=clients, projects=projects)
+
+
+# Add Client Functionality
 @app.route("/add_client", methods=["GET", "POST"])
 def add_client():
     if request.method == "POST":
@@ -124,6 +153,7 @@ def add_client():
     return render_template("client.html")
 
 
+# Edit Client Functionality and page rendering
 @app.route("/edit_client/<client_id>", methods=["GET", "POST"])
 def edit_client(client_id):
     if request.method == "POST":
@@ -144,36 +174,22 @@ def edit_client(client_id):
     return render_template("edit_client.html", client=client)
 
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        # check if username exists in db
-        existing_user = mongo.db.employees.find_one(
-            {"email": request.form.get("email").lower()})
-
-        if existing_user:
-            # ensure hashed password matches user input
-            if check_password_hash(
-                existing_user["password"],
-                request.form.get("password")):
-                session["employee"] = request.form.get("email").lower()
-                flash("Welcome {}!".format(
-                    existing_user["first_name"]
-                    .capitalize()))
-                return redirect(url_for("profile", email=session["employee"]))
-            else:
-                # invalid password match
-                flash("Incorrect email and/or Password")
-                return redirect(url_for("login"))
-
-        else:
-            # username doesn't exist
-            flash("Incorrect email and/or Password")
-            return redirect(url_for("login"))
-
-    return render_template("login.html")
+# Delete Client - Admin Only
+@app.route("/delete_client/<client_id>")
+def delete_client(client_id):
+    mongo.db.clients.remove({"client_id": client_id})
+    flash("Client Successfully Deleted")
+    return redirect(url_for("clients"))
 
 
+# Project Directory
+@app.route("/get_projects")
+def get_projects():
+    projects = mongo.db.projects.find()
+    return render_template("projects.html", projects=projects)
+
+
+# Render Employee Profile
 @app.route("/profile/<email>", methods=["GET", "POST"])
 def profile(email):
     # grab the session user's first name from db
@@ -216,7 +232,8 @@ def logout():
     session.pop("employee")
     return redirect(url_for("login"))
 
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True)  #Change to false below submission
+            debug=True)  # Change to false below submission
