@@ -102,6 +102,10 @@ body, html {
     color: #ffffff;
 }
 
+.btnheight {
+    line-height: normal;
+}
+
 /******************************Icon Styling******************************/
 
 .largeicon {
@@ -135,7 +139,7 @@ header {
 
 .homeimage {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/tunnel_hero.jpg"); 
-  height: calc(100vh - 60px);
+  height: calc(100vh - 86px);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -252,6 +256,11 @@ header {
     border: 0px;
 }
 
+.querybox {
+    width: 100%;
+    border: none;
+    height: 100%;
+}
 /******************************Media Queries for Smaller devices******************************/
 
 @media (max-width: 1100px) {

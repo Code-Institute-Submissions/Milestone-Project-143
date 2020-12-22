@@ -120,7 +120,7 @@ def register():
 # Client Directory
 @app.route("/clients")
 def clients():
-    clients = mongo.db.clients.find()
+    clients = list(mongo.db.clients.find())
     projects = mongo.db.projects.find()
     print(clients)
     return render_template("client.html", clients=clients, projects=projects)
@@ -170,8 +170,8 @@ def edit_client(client_id):
         flash("Updated Successful!")
         return redirect(url_for("clients"))
 
-    client = mongo.db.clients.find_one({"client_id": client_id})
-    return render_template("edit_client.html", client=client)
+    clients = mongo.db.clients.find_one({"client_id": client_id})
+    return render_template("edit_client.html", clients=clients)
 
 
 # Delete Client - Admin Only
@@ -181,6 +181,13 @@ def delete_client(client_id):
     flash("Client Successfully Deleted")
     return redirect(url_for("clients"))
 
+
+# Client Search Query
+@app.route("/client_search", methods=["GET", "POST"])
+def client_search():
+    query = request.form.get("clientquery")
+    clients = list(mongo.db.clients.find({"$text": {"$search": query}}))
+    return render_template("client.html", clients=clients)
 
 # Project Directory
 @app.route("/get_projects")
