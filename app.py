@@ -170,8 +170,8 @@ def edit_client(client_id):
         flash("Updated Successful!")
         return redirect(url_for("clients"))
 
-    clients = mongo.db.clients.find_one({"client_id": client_id})
-    return render_template("edit_client.html", clients=clients)
+    client = mongo.db.clients.find_one({"client_id": client_id})
+    return render_template("edit_client.html", client=client)
 
 
 # Delete Client - Admin Only

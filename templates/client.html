@@ -29,7 +29,7 @@
                                         </div>
                                         <div class="col-11 p-0 px-1">
                                             <input type="text" name="client_name" pattern="^[a-zA-Z0-9]+[a-zA-Z0-9 ]+" class="form-control"
-                                                id="client_name" placeholder="Client Name" minlength="2" maxlength="30" required>
+                                                id="client_name" placeholder="Client Name" minlength="2" maxlength="40" required>
                                         </div>
                                     </div>
                                     <!--Client Contact Name-->
@@ -78,7 +78,7 @@
                                             <i class="fas fa-map-marker align-middle largeicon"></i>
                                         </div>
                                         <div class="col-11 p-0 px-1">
-                                            <input type="text" name="client_address" pattern="^[a-zA-Z0-9]+[a-zA-Z0-9 ]+" class="form-control"
+                                            <input type="text" name="client_address" pattern="^[a-zA-Z0-9,-.]+[a-zA-Z0-9,-. ]+" class="form-control"
                                                 id="client_address" placeholder="Address" minlength="2" maxlength="150" required>
                                         </div>
                                     </div>
@@ -98,7 +98,6 @@
                 </div>
             </div>
         </div>
-        <hr>
         <div class="row">
             <form class="col-12" method="POST" action="{{ url_for('client_search') }}">
                 <div class="row center-align p-2 my-4">
