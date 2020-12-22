@@ -28,9 +28,16 @@ body {
     background-color: #edd0e5;
 }
 
+.green {
+    background-color: #84bd00;
+}
 
 .green60 {
     background-color: #b2d68d;
+}
+
+.green40 {
+    background-color: #cbe3b3;
 }
 
 .blue60 {
@@ -119,6 +126,10 @@ body, html {
 header {
    height: 86px;
 }
+
+/******************************Navbar******************************/
+
+
 
 /******************************Home Page******************************/
 
@@ -231,6 +242,12 @@ header {
 
 .accordion-button:not(.collapsed) {
     background-color: #9e007e;
+    color: white;
+    border: 0px;
+}
+
+.green60:not(.collapsed) {
+    background-color: #84bd00;
     color: white;
     border: 0px;
 }

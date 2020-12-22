@@ -41,6 +41,7 @@ def index():
 def clients():
     clients = mongo.db.clients.find()
     projects = mongo.db.projects.find()
+    print(clients)
     return render_template("client.html", clients=clients, projects=projects)
 
 
@@ -93,6 +94,32 @@ def register():
         flash("Registration Successful!")
         return redirect(url_for("profile", email=session["employee"]))
     return render_template("register.html")
+
+
+@app.route("/add_client", methods=["GET", "POST"])
+def add_client():
+    if request.method == "POST":
+        # check if client ID already exists within db
+        existing_id = mongo.db.clients.find_one(
+            {"client_id": request.form.get("client_id")})
+
+        if existing_id:
+            flash("Client ID already in use, try another ID number.")
+            return render_template("client.html")
+
+        # Insert Info into Mondo DB
+        clientregister = {
+            "name": request.form.get("client_name").lower(),
+            "contact": request.form.get("client_contact").lower(),
+            "phone": request.form.get("phone"),
+            "email": request.form.get("email").lower(),
+            "client_id": request.form.get("client_id"),
+            "address": request.form.get("client_address").lower(),
+        }
+        mongo.db.clients.insert_one(clientregister)
+        flash("Registration Successful!")
+        return redirect(url_for("clients"))
+    return render_template("client.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -166,7 +193,6 @@ def logout():
     flash("You have been logged out")
     session.pop("employee")
     return redirect(url_for("login"))
-
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
