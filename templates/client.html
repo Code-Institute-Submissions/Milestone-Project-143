@@ -125,6 +125,12 @@
                                 <p>No current projects.</p>
                                 {% endif %}
                             {% endfor %}
+                            <div class="row mt-4">
+                                <div class="col-12 text-center">
+                                    <a href="" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Done</a>
+                                    <a href="{{ url_for('edit_client', client_id=client.client_id) }}" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Edit</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

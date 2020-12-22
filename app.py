@@ -124,6 +124,26 @@ def add_client():
     return render_template("client.html")
 
 
+@app.route("/edit_client/<client_id>", methods=["GET", "POST"])
+def edit_client(client_id):
+    if request.method == "POST":
+        # Insert Info into Mondo DB
+        clientregister = {
+            "name": request.form.get("client_name").lower(),
+            "contact": request.form.get("client_contact").lower(),
+            "phone": request.form.get("phone"),
+            "email": request.form.get("email").lower(),
+            "client_id": client_id,
+            "address": request.form.get("client_address").lower(),
+        }
+        mongo.db.clients.update({"client_id": client_id}, clientregister)
+        flash("Updated Successful!")
+        return redirect(url_for("clients"))
+
+    client = mongo.db.clients.find_one({"client_id": client_id})
+    return render_template("edit_client.html", client=client)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
