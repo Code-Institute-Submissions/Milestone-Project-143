@@ -4,28 +4,38 @@
     <div class="container container-profile">
         <div class="row py-5">
             <div class="col-12 col-md-4 col-lg-3 p-0">
-            <div class="col-12 boxoverlay purple40 mb-1">
-                <div class="text-center pt-2">
-                    <h4 class="mediumtext mb-0 darktext">Profile</h4>
+                <div class="col-12 boxoverlay purple40 mb-1">
+                    <div class="text-center pt-2">
+                        <h4 class="mediumtext mb-0 darktext">Profile</h4>
+                    </div>
+                    <div class="imgcontainer p-2">
+                        <img src="{{ imgurl }}" alt="">
+                    </div>
+                    <hr>
+                    <div class="p-2">
+                        <p class="mb-0"><strong>Name:</strong></p>
+                        <p>{{ first_name }} {{ last_name }}</p>
+                        <p class="mb-0"><strong>Position:</strong></p>
+                        <p class="text-capitalize">{{ title }}</p>
+                        <p class="mb-0"><strong>Email:</strong></p>
+                        <p>{{ email }}</p>
+                        <p class="mb-0"><strong>Phone:</strong></p>
+                        <p>{{ phone }}</p>
+                        <p class="mb-0"><strong>Manager: </strong></p>
+                        <p class="mb-0 text-capitalize"><a class="link darktext"
+                                href="{{ url_for('profile', email=(manageremail) )}}">{{ managername }}</a></p>
+                    </div>
+                    <div class="col-12 text-center my-2">
+                        {% if session["employee"] == "admin@murphyeng.com" %}
+                        <a href="{{ url_for('edit_employee', employee_id=employee_id) }}"
+                            class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Edit</a>
+                        {% endif %}
+                        {% if session["employee"] == email %}
+                        <a href="{{ url_for('edit_employee', employee_id=employee_id) }}"
+                            class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Edit</a>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="imgcontainer p-2">
-                    <img src="{{ imgurl }}" alt="">
-                </div>
-                <hr>
-                <div class="p-2">
-                    <p class="mb-0"><strong>Name:</strong></p>
-                    <p>{{ first_name }} {{ last_name }}</p>
-                    <p class="mb-0"><strong>Position:</strong></p>
-                    <p class="text-capitalize">{{ title }}</p>
-                    <p class="mb-0"><strong>Email:</strong></p>
-                    <p>{{ email }}</p>
-                    <p class="mb-0"><strong>Phone:</strong></p>
-                    <p>{{ phone }}</p>
-                    <p class="mb-0"><strong>Manager: </strong></p>
-                    <p class="mb-0 text-capitalize"><a class="link darktext"
-                            href="{{ url_for('profile', email=(manageremail) )}}">{{ managername }}</a></p>
-                </div>
-            </div>
             </div>
             <div class="col-12 col-md-8 col-lg-9 p-0">
                 <div class="row p-0 m-0">
@@ -38,30 +48,32 @@
                             </div>
                         </div>
                         {% for project in projects %}
-                        {% if project.project_manager_id == employee_id %}
-                        <div class="row py-1 px-md-2 m-0">
-                            <div class="col-12 boxoverlay green40 p-2">
-                                <h4 class="smalltext my-1 darktext text-capitalize">{{ project.project_name }}</h4>
-                                <hr class="my-1">
-                                {% for client in clients %}
-                                {% if client.client_id == project.client_id%}
-                                <p class="mb-1 text-capitalize"><strong>Client: </strong>{{ client.name }}</p>
-                                {% endif %}
-                                {% endfor %}
-                                <p class="mb-1"><strong>Fee: </strong>{{ project.fee }}</p>
-                                <p class="mb-1"><strong>Start date: </strong>{{ project.start_date }}</p>
-                                <p class="mb-1"><strong>End Date: </strong>{{ project.end_date }}</p>
-                                <div class="additionalcontent my-2 text-center">
-                                    <p class="mb-3 text-start"><strong>Project Description:
-                                        </strong>{{ project.project_description }}</p>
-                                    <a href="javascript:void(0)"
-                                        class="readmore-btn mb-3 btn-green btnlink rounded p-2">Read More ▼</a>
-                                    <a href="{{ url_for('edit_project', project_no=project.project_no) }}"
-                                        class="readmore-btn mb-3 btn-green btnlink rounded p-2">Edit Project</a>
+                            {% if project.project_manager_id == employee_id %}
+                            <div class="row py-1 px-md-2 m-0">
+                                <div class="col-12 boxoverlay green40 p-2">
+                                    <h4 class="smalltext my-1 darktext text-capitalize">{{ project.project_name }}</h4>
+                                    <hr class="my-1">
+                                    {% for client in clients %}
+                                    {% if client.client_id == project.client_id%}
+                                    <p class="mb-1 text-capitalize"><strong>Client: </strong>{{ client.name }}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <p class="mb-1"><strong>Fee: </strong>{{ project.fee }}</p>
+                                    <p class="mb-1"><strong>Start date: </strong>{{ project.start_date }}</p>
+                                    <p class="mb-1"><strong>End Date: </strong>{{ project.end_date }}</p>
+                                    <div class="additionalcontent my-2 text-center">
+                                        <p class="mb-3 text-start"><strong>Project Description:
+                                            </strong>{{ project.project_description }}</p>
+                                        <a href="javascript:void(0)"
+                                            class="readmore-btn mb-3 btn-green btnlink rounded p-2">Read More ▼</a>
+                                        {% if session["employee"] == "admin@murphyeng.com" or session["employee"] == email  %}
+                                        <a href="{{ url_for('edit_project', project_no=project.project_no) }}"
+                                            class="readmore-btn mb-3 btn-green btnlink rounded p-2">Edit Project</a>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        {% endif %}
+                            {% endif %}
                         {% endfor %}
                         <div class="row pt-4 pt-md-0 m-0 px-md-2">
                             <div class="col-12 boxoverlay pt-2 green40">
@@ -71,29 +83,28 @@
                             </div>
                         </div>
                         {% for project in projects %}
-                        {% if employee_id in project.team and employee_id != project.project_manager_id %}
-                        
-                        <div class="row py-1 px-md-2 m-0">
-                            <div class="col-12 boxoverlay green40 p-2">
-                                <h4 class="smalltext my-1 darktext text-capitalize">{{ project.project_name }}</h4>
-                                <hr class="my-1">
-                                {% for client in clients %}
-                                {% if client.client_id == project.client_id%}
-                                <p class="mb-1 text-capitalize"><strong>Client: </strong>{{ client.name }}</p>
-                                {% endif %}
-                                {% endfor %}
-                                <p class="mb-1"><strong>Fee: </strong>{{ project.fee }}</p>
-                                <p class="mb-1"><strong>Start date: </strong>{{ project.start_date }}</p>
-                                <p class="mb-1"><strong>End Date: </strong>{{ project.end_date }}</p>
-                                <div class="additionalcontent my-2 text-center">
-                                    <p class="mb-3 text-start"><strong>Project Description:
-                                        </strong>{{ project.project_description }}</p>
-                                    <a href="javascript:void(0)"
-                                        class="readmore-btn mb-3 btn-green btnlink rounded p-2">Read More ▼</a>
+                            {% if employee_id in project.team and employee_id != project.project_manager_id %}
+                            <div class="row py-1 px-md-2 m-0">
+                                <div class="col-12 boxoverlay green40 p-2">
+                                    <h4 class="smalltext my-1 darktext text-capitalize">{{ project.project_name }}</h4>
+                                    <hr class="my-1">
+                                    {% for client in clients %}
+                                    {% if client.client_id == project.client_id%}
+                                    <p class="mb-1 text-capitalize"><strong>Client: </strong>{{ client.name }}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <p class="mb-1"><strong>Fee: </strong>{{ project.fee }}</p>
+                                    <p class="mb-1"><strong>Start date: </strong>{{ project.start_date }}</p>
+                                    <p class="mb-1"><strong>End Date: </strong>{{ project.end_date }}</p>
+                                    <div class="additionalcontent my-2 text-center">
+                                        <p class="mb-3 text-start"><strong>Project Description:
+                                            </strong>{{ project.project_description }}</p>
+                                        <a href="javascript:void(0)"
+                                            class="readmore-btn mb-3 btn-green btnlink rounded p-2">Read More ▼</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        {% endif %}
+                            {% endif %}
                         {% endfor %}
                     </div>
                     <div class="col-12 col-lg-5">

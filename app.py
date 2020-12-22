@@ -307,6 +307,44 @@ def delete_employee(employee_id):
     return redirect(url_for("get_employees"))
 
 
+# Edit Employee - Employee can edit own info or ADMIN can edit all
+@app.route("/edit_employee/<employee_id>", methods=["GET", "POST"])
+def edit_employee(employee_id):
+    if request.method == "POST":
+        # Upload Image to AWS
+        img = request.files["file"]
+        if img:
+            filename = secure_filename(img.filename)
+            img.save(filename)
+            s3.upload_file(
+                Bucket=BUCKET_NAME,
+                Filename=filename,
+                Key=filename
+            )
+        imglocation = "{}{}".format(S3_LOCATION, filename)
+        # Gather Data from form to update DB
+        register = {
+            "first_name": request.form.get("first_name").lower(),
+            "last_name": request.form.get("last_name").lower(),
+            "phone": request.form.get("phone").lower(),
+            "email": request.form.get("email").lower(),
+            "employee_id": employee_id,
+            "dob": request.form.get("dob"),
+            "manager_id": request.form.get("manager_id"),
+            "title": request.form.get("title").lower(),
+            "password": generate_password_hash(request.form.get("password")),
+            "imgurl": imglocation
+        }
+        mongo.db.employees.update({"employee_id": employee_id}, register)
+        flash("Employee Update Successful!")
+        return redirect(url_for("get_employees"))
+    employee = mongo.db.employees.find_one({"employee_id": employee_id})
+    managers = list(mongo.db.employees.find({}, {"password": 0}))
+    return render_template("edit_employee.html",
+                           employee=employee,
+                           managers=managers)
+
+
 # Render Employee Profile
 @app.route("/profile/<email>", methods=["GET", "POST"])
 def profile(email):
