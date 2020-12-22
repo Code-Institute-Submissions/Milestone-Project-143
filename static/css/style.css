@@ -265,6 +265,9 @@ header {
 }
 
 @media (max-width: 576px) { 
+    .largeicon {
+    font-size: 1.5rem;
+    }
         
     body, html {
         font-size: 14px;
@@ -273,6 +276,10 @@ header {
 }
 
 @media (max-width: 350px) { 
+
+    .largeicon {
+    font-size: 1.4rem;
+    }
 
     body, html {
         font-size: 12px;
