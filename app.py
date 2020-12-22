@@ -315,6 +315,8 @@ def profile(email):
         {"email": email})["first_name"]
     last_name = mongo.db.employees.find_one(
         {"email": email})["last_name"]
+    employee_id = mongo.db.employees.find_one(
+        {"email": email})["employee_id"]
     imgurl = mongo.db.employees.find_one(
         {"email": email})["imgurl"]
     title = mongo.db.employees.find_one(
@@ -331,15 +333,20 @@ def profile(email):
                             {"employee_id": managerid})["last_name"]])
     manageremail = mongo.db.employees.find_one(
         {"employee_id": managerid})["email"]
+    projects = list(mongo.db.projects.find())
+    clients = list(mongo.db.clients.find())
 
     if session["employee"]:
         return render_template("profile.html",
                                first_name=first_name.capitalize(),
                                last_name=last_name.capitalize(),
+                               employee_id=employee_id,
                                imgurl=imgurl, title=title,
                                phone=phone, email=email,
                                managername=managername,
-                               manageremail=manageremail)
+                               manageremail=manageremail,
+                               projects=projects,
+                               clients=clients)
     return redirect(url_for("login"))
 
 
