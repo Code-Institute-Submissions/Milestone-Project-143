@@ -1,7 +1,6 @@
-boto3==1.16.40
-botocore==1.19.40
+boto3==1.16.42
+botocore==1.19.42
 click==7.1.2
-cloudinary==1.24.0
 dnspython==2.0.0
 Flask==1.1.2
 Flask-PyMongo==2.3.0
