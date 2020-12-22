@@ -122,7 +122,7 @@ def register():
 @app.route("/clients")
 def clients():
     clients = list(mongo.db.clients.find())
-    projects = mongo.db.projects.find()
+    projects = list(mongo.db.projects.find())
     print(clients)
     return render_template("client.html", clients=clients, projects=projects)
 
@@ -231,8 +231,12 @@ def add_project():
 @app.route("/project_search", methods=["GET", "POST"])
 def project_search():
     query = request.form.get("projectquery")
+    clients = list(mongo.db.clients.find())
+    employees = list(mongo.db.employees.find({}, {"password": 0}))
     projects = list(mongo.db.projects.find({"$text": {"$search": query}}))
-    return render_template("projects.html", projects=projects)
+    return render_template("projects.html",
+                           projects=projects,
+                           clients=clients, employees=employees)
 
 
 # Edit Project Functionality and page rendering
@@ -265,6 +269,42 @@ def edit_project(project_no):
     return render_template("edit_project.html",
                            project=project,
                            clients=clients, employees=employees)
+
+
+# Delete Project - Admin & PM Only
+@app.route("/delete_project/<project_no>")
+def delete_project(project_no):
+    int_project_no = int(project_no)
+    mongo.db.projects.remove({"project_no": int_project_no})
+    flash("Project Successfully Deleted")
+    return redirect(url_for("get_projects"))
+
+
+# Employee Directory
+@app.route("/get_employees")
+def get_employees():
+    managers = list(mongo.db.employees.find({}, {"password": 0}))
+    employees = list(mongo.db.employees.find({}, {"password": 0}))
+    return render_template("employees.html",
+                           employees=employees, managers=managers)
+
+
+# Employee Search Query
+@app.route("/employee_search", methods=["GET", "POST"])
+def employee_search():
+    query = request.form.get("employeequery")
+    managers = list(mongo.db.employees.find({}, {"password": 0}))
+    employees = list(mongo.db.employees.find({"$text": {"$search": query}}))
+    return render_template("employees.html",
+                           employees=employees, managers=managers)
+
+
+# Delete Employee - Admin Only
+@app.route("/delete_employee/<employee_id>")
+def delete_employee(employee_id):
+    mongo.db.employees.remove({"employee_id": employee_id})
+    flash("Employee Successfully Deleted")
+    return redirect(url_for("get_employees"))
 
 
 # Render Employee Profile

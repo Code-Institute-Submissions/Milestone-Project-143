@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row mt-5 text-center">
+            <h1 class="largetext darktext">Employee Directory</h1>
+            <hr>
+        </div>
+        <div class="row">
+            <form class="col-12" method="POST" action="{{ url_for('employee_search') }}">
+                <div class="row center-align p-2 my-4">
+                    <div class="input-field col-12 col-md-6 col-lg-8">
+                        <input type="text" name="employeequery" id="employeequery" class="validate querybox p-2 rounded" minlength="1" placeholder="Search Employee Directory" required>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 text-center mt-3 mt-md-0">
+                        <button type="submit" class="btn-purple mediumtext p-2 px-4 mx-2 rounded border-0 btnheight">Search</button>
+                        <a href="{{ url_for('get_employees') }}" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Reset</a>    
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if employees|length > 0 %}
+        <div class="row">
+            <div class="accordion" id="accordionExample">
+                {% for employee in employees %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{ employee.employee_id }}">
+                        <button class="accordion-button purple40 mediumtext darktext text-capitalize collapsed text-start" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse{{ employee.employee_id }}" aria-expanded="false" aria-controls="{{ employee.employee_id }}">
+                            {{ employee.first_name }} {{ employee.last_name }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ employee.employee_id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ employee.employee_id }}"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body purple20">
+                            <p><strong>Employee No: </strong>{{ employee.employee_id }}</p>
+                            <p class="text-capitalize"><strong>Title: </strong>{{ employee.title }}</p>
+                            <p><strong>Email: </strong>{{ employee.email }}</p>
+                            <p><strong>Phone: </strong>{{ employee.phone }}</p>
+                            {% for manager in managers%}
+                                {% if employee.manager_id == manager.employee_id%}
+                                <p class="text-capitalize"><strong>Manager:</strong> {{ manager.first_name }} {{ manager.last_name }} </p>
+                                {% endif %}
+                            {% endfor %}
+                            <div class="row mt-4">
+                                <div class="col-12 text-center">
+                                    {% if session["employee"] == "admin@murphyeng.com" %}
+                                    <a href="{{ url_for('delete_employee', employee_id=employee.employee_id) }}" onclick="return confirm('Are you sure you want to delete this item? This may impact accuracy of project data.');" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Delete</a>
+                                    <a href="" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Edit</a>
+                                    {% endif %}
+                                    {% if session["employee"] == employee.email %}
+                                    <a href="" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Edit</a>
+                                    {% endif %}
+                                    <a href="{{ url_for('profile', email=employee.email )}}" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">View Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        No employees were found.
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+

@@ -135,9 +135,7 @@
                             <p class="text-capitalize"><strong>Current Projects:</strong></p>
                             {% for project in projects %}
                                 {% if project.client_id == client.client_id %}
-                                <p>{{ project.project_name }}</p>
-                                {% else %}
-                                <p>No current projects.</p>
+                                <p class="text-capitalize">{{ project.project_name }}</p>
                                 {% endif %}
                             {% endfor %}
                             <div class="row mt-4">
