@@ -265,7 +265,6 @@ def edit_project(project_no):
     clients = list(mongo.db.clients.find())
     employees = list(mongo.db.employees.find({}, {"password": 0}))
     project = mongo.db.projects.find_one({"project_no": int_project_no})
-    print(project)
     return render_template("edit_project.html",
                            project=project,
                            clients=clients, employees=employees)
@@ -373,7 +372,8 @@ def profile(email):
         {"employee_id": managerid})["email"]
     projects = list(mongo.db.projects.find())
     clients = list(mongo.db.clients.find())
-
+    tasks = list(mongo.db.tasks.find({"employee_id": employee_id}))
+    print(tasks)
     if session["employee"]:
         return render_template("profile.html",
                                first_name=first_name.capitalize(),
@@ -384,10 +384,93 @@ def profile(email):
                                managername=managername,
                                manageremail=manageremail,
                                projects=projects,
-                               clients=clients)
+                               clients=clients,
+                               tasks=tasks)
     return redirect(url_for("login"))
 
 
+# Tasks Directory
+# Project Directory
+@app.route("/get_tasks")
+def get_tasks():
+    tasks = list(mongo.db.tasks.find())
+    projects = list(mongo.db.projects.find())
+    employees = list(mongo.db.employees.find({}, {"password": 0}))
+    return render_template("tasks.html",
+                           projects=projects,
+                           tasks=tasks, employees=employees)
+
+
+# Add Task Functionality
+@app.route("/add_task", methods=["GET", "POST"])
+def add_task():
+    # Insert Info into Mondo DB
+    task_id = list(mongo.db.tasks.distinct("task_id"))
+    task_id_int = list(map(int, task_id))
+    task_id_int.sort()
+    new_task_id = task_id_int[-1] + 1
+    complete = "yes" if request.form.get("complete") else "no"
+    taskregister = {
+            "task_id": new_task_id,
+            "task_name": request.form.get("task_name").lower(),
+            "task_description":
+            request.form.get("task_description").lower(),
+            "project_no": request.form.get("project_no"),
+            "due_date": request.form.get("duedate"),
+            "employee_id": request.form.get("employee_id"),
+            "progress": request.form.get("progress"),
+            "complete": complete,
+    }
+
+    mongo.db.tasks.insert_one(taskregister)
+    flash("Task added Successfully!")
+    return redirect(url_for("get_tasks"))
+
+
+# Edit Project Functionality and page rendering
+@app.route("/edit_task/<task_id>", methods=["GET", "POST"])
+def edit_task(task_id):
+    int_task_id = int(task_id)
+    if request.method == "POST":
+        # Insert Info into Mondo DB
+        complete = "yes" if request.form.get("complete") else "no"
+        taskregister = {
+            "task_id": task_id,
+            "task_name": request.form.get("task_name").lower(),
+            "task_description":
+            request.form.get("task_description").lower(),
+            "project_no": request.form.get("project_no"),
+            "due_date": request.form.get("duedate"),
+            "employee_id": request.form.get("employee_id"),
+            "progress": request.form.get("progress"),
+            "complete": complete,
+        }
+        mongo.db.tasks.update(
+                                 {"task_id": int_task_id},
+                                 taskregister)
+        flash("Task Update Successful!")
+        return redirect(url_for("get_tasks"))
+    projects = list(mongo.db.projects.find())
+    employees = list(mongo.db.employees.find({}, {"password": 0}))
+    task = mongo.db.tasks.find_one({"task_id": int_task_id})
+    return render_template("edit_task.html",
+                           projects=projects,
+                           task=task, employees=employees)
+
+
+# Tasks Search Query
+@app.route("/task_search", methods=["GET", "POST"])
+def task_search():
+    query = request.form.get("taskquery")
+    projects = list(mongo.db.projects.find())
+    employees = list(mongo.db.employees.find({}, {"password": 0}))
+    tasks = list(mongo.db.tasks.find({"$text": {"$search": query}}))
+    return render_template("tasks.html",
+                           projects=projects,
+                           tasks=tasks, employees=employees)
+
+
+# Logout Functionality
 @app.route("/logout")
 def logout():
     # remove user from session cookie

@@ -1,7 +1,6 @@
 /******************************Google Font Imports******************************/
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-
 /******************************Main Theme Colours******************************/
 
 .teal {
@@ -116,7 +115,6 @@ body, html {
     font-size: 1.4rem;
 }
 
-
 /******************************Blockdividers******************************/
 
 /**code below for hr fade styling taken from https://codepen.io/ibrahimjabbari/pen/ozinB**/
@@ -130,10 +128,6 @@ body, html {
 header {
    height: 86px;
 }
-
-/******************************Navbar******************************/
-
-
 
 /******************************Home Page******************************/
 
@@ -153,7 +147,6 @@ header {
 .btnlink:hover {
     color: #333333;
 }
-
 
 /******************************Registeration Page******************************/
 
@@ -261,6 +254,7 @@ header {
     border: none;
     height: 100%;
 }
+
 /******************************Media Queries for Smaller devices******************************/
 
 @media (max-width: 1100px) {

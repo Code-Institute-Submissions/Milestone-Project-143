@@ -115,24 +115,78 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row pb-1 pt-0 px-md-2 px-lg-0">
-                            <div class="col-12 boxoverlay blue60">
-                                <h4 class="smalltext my-1 darktext">To Do</h4>
-                                <hr class="my-1">
+                            <div class="row pb-1 pt-0 px-md-2 px-lg-0">
+                                <div class="col-12 boxoverlay blue60">
+                                    <h4 class="smalltext my-1 darktext">To Do</h4>
+                                    <hr class="my-1">
+                                </div>
                             </div>
-                        </div>
-                        <div class="row py-1 px-md-2 px-lg-0">
-                            <div class="col-12 boxoverlay blue60">
-                                <h4 class="smalltext my-1 darktext">In Progress</h4>
-                                <hr class="my-1">
+                            {% for task in tasks %}
+                                {% if task.progress|int == 0 %}
+                                    <div class="row pb-1 pt-0 px-lg-0">
+                                        <div class="col-12 boxoverlay blue60">
+                                            <p class="text-capitalize mb-0"><strong>Name: </strong>{{ task.task_name }}</p>
+                                            <p class="mb-0"><strong>Description: </strong>{{ task.task_description}}</p>
+                                            <p class="mb-0"><strong>Due Date: </strong>{{ task.due_date }}</p>
+                                            <div class="my-2 text-center boxoverlay blue60">
+                                                {% if session["employee"] == "admin@murphyeng.com" or session["employee"] == email  %}
+                                                <a href="{{ url_for('edit_task', task_id=task.task_id) }}"
+                                                    class="readmore-btn mb-3 btn-blue btnlink rounded p-2">Edit Task</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            <div class="row py-1 px-md-2 px-lg-0">
+                                <div class="col-12 boxoverlay blue60">
+                                    <h4 class="smalltext my-1 darktext">In Progress</h4>
+                                    <hr class="my-1">
+                                </div>
                             </div>
-                        </div>
-                        <div class="row py-1 px-md-2 px-lg-0">
-                            <div class="col-12 boxoverlay blue60">
-                                <h4 class="smalltext my-1 darktext">Complete</h4>
-                                <hr class="my-1">
+                            {% for task in tasks %}
+                                {% if task.progress|int > 0 and task.complete == 'no' %}
+                                    <div class="row pb-1 pt-0 px-lg-0">
+                                        <div class="col-12 boxoverlay blue60">
+                                            <p class="text-capitalize mb-0"><strong>Name: </strong>{{ task.task_name }}</p>
+                                            <p class="mb-0"><strong>Description: </strong>{{ task.task_description}}</p>
+                                            <p class="mb-0"><strong>Due Date: </strong>{{ task.due_date }}</p>
+                                            <p class="mb-0"><strong>Progress: </strong>{{ task.progress }}%</p>
+                                            <div class="my-2 text-center boxoverlay blue60">
+                                                {% if session["employee"] == "admin@murphyeng.com" or session["employee"] == email  %}
+                                                    <a href="{{ url_for('edit_task', task_id=task.task_id) }}"
+                                                        class="readmore-btn mb-3 btn-blue btnlink rounded p-2">Edit Task</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            <div class="row py-1 px-md-2 px-lg-0">
+                                <div class="col-12 boxoverlay blue60">
+                                    <h4 class="smalltext my-1 darktext">Complete</h4>
+                                    <hr class="my-1">
+                                </div>
                             </div>
-                        </div>
+                            {% for task in tasks %}
+                                {% if task.complete == 'yes' %}
+                                    <div class="row pb-1 pt-0 px-lg-0">
+                                        <div class="col-12 boxoverlay blue60">
+                                            <p class="text-capitalize mb-0"><strong>Name: </strong>{{ task.task_name }}</p>
+                                            <p class="mb-0"><strong>Description: </strong>{{ task.task_description}}</p>
+                                            <p class="mb-0"><strong>Due Date: </strong>{{ task.due_date }}</p>
+                                            <p class="mb-0"><strong>Complete: </strong>{{ task.complete }}</p>
+                                            <div class="my-2 text-center boxoverlay blue60">
+                                                {% if session["employee"] == "admin@murphyeng.com" or session["employee"] == email  %}
+                                                <a href="{{ url_for('edit_task', task_id=task.task_id) }}"
+                                                    class="readmore-btn mb-3 btn-blue btnlink rounded p-2">Edit Task</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                {% endif %}
+                            {% endfor %}
                     </div>
                 </div>
             </div>

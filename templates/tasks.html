@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row mt-5 text-center">
+            <h1 class="largetext darktext">Tasks Directory</h1>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="accordion" id="accordionNewProject">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingReg">
+                        <button class="accordion-button green60 mediumtext darktext collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                            Add New Task
+                        </button>
+                    </h2>
+                    <div id="collapse" class="accordion-collapse collapse" aria-labelledby="headingReg"
+                        data-bs-parent="#accordionNewProject">
+                        <div class="accordion-body green40">
+                            <form class="" method="POST" action="{{ url_for('add_task') }}">
+                                <h5 class="card-header darktext largetext mx-auto pt-4 text-center">Task Creation</h5>
+                                <div class="card-body p-3 p-md-5">
+                                    <!--Task Name-->
+                                    <div class="mb-2 row">
+                                        <div class="col-1 text-center p-0">
+                                            <i class="fas fa-tasks align-middle largeicon"></i>
+                                        </div>
+                                        <div class="col-11 p-0 px-1">
+                                            <input type="text" name="task_name" pattern="^[a-zA-Z0-9-]+[a-zA-Z0-9- ]+" class="form-control"
+                                                id="task_name" placeholder="Task Name" minlength="2" maxlength="50" required>
+                                        </div>
+                                    </div>
+                                    <!--Task Description-->
+                                    <div class="mb-2 row">
+                                        <div class="col-1 text-center p-0">
+                                            <i class="fas fa-file-alt align-middle largeicon"></i>
+                                        </div>
+                                        <div class="col-11 p-0 px-1">
+                                            <input type="text" name="task_description" pattern="^[a-zA-Z0-9,-.]+[a-zA-Z0-9,-. ]+" class="form-control"
+                                                id="task_description" placeholder="Task Description" minlength="2" maxlength="300" required>
+                                        </div>
+                                    </div>
+                                    <!--Project_Name-->
+                                    <div class="mb-2 row">
+                                        <div class="col-1 text-center p-0">
+                                            <i class="fas fa-briefcase align-middle largeicon"></i>
+                                        </div>
+                                        <div class="col-11 p-0 px-1">
+                                            <select class="form-select text-capitalize" aria-label="Default select example" id="project_no" name="project_no" required>
+                                                <option selected>Project</option>
+                                                {% for project in projects %}
+                                                <option value="{{ project.project_no }}">{{ project.project_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--Assign Employee-->
+                                    <div class="mb-2 row">
+                                        <div class="col-1 text-center p-0">
+                                            <i class="fas fa-users align-middle largeicon"></i>
+                                        </div>
+                                        <div class="col-11 p-0 px-1">
+                                            <select class="form-select text-capitalize" aria-label="Default select example" id="employee_id" name="employee_id" required>
+                                                <option selected>Employee</option>
+                                                {% for employee in employees %}
+                                                    <option value="{{ employee.employee_id }}">{{ employee.first_name }} {{ employee.last_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--Due Date-->
+                                    <div class="mb-2 row">
+                                        <div class="col-1 text-center p-0">
+                                            <i class="fas fa-calendar align-middle largeicon"></i>
+                                        </div>
+                                        <div class="col-11 p-0 px-1">
+                                            <input type="date" name="duedate" class="form-control" id="duedate" placeholder="Due Date" required>
+                                        </div>
+                                    </div>
+                                    <!--Progress-->
+                                    <div class="mb-2 row">
+                                        <div class="col-1 text-center p-0">
+                                            <i class="fas fa-percentage align-middle largeicon"></i>
+                                        </div>
+                                        <div class="col-11 p-0 px-1">
+                                            <input type="number" name="progress" pattern="^[0-9]$" class="form-control"
+                                                id="progress" placeholder="Percentage Complete" minlength="1" maxlength="3" required>
+                                        </div>
+                                    </div>
+                                    <!--Complete-->
+                                    <div class="mb-2 row">
+                                        <div class="col-1 text-center p-0">
+                                            <i class="fas fa-check-circle align-middle largeicon"></i>
+                                        </div>
+                                        <div class="col-11 p-0 px-1">
+                                            <label for="complete">
+                                                <input type="checkbox" id="complete" name="complete">
+                                                <span class="lever"></span>
+                                                Complete
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!--Registration Submit Button-->
+                                    <div class="row mt-4">
+                                        <div class="col-12 text-center">
+                                            <button type="submit"
+                                                class="btn btn-purple mediumtext">
+                                                Submit New Task <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <form class="col-12" method="POST" action="{{ url_for('task_search') }}">
+                <div class="row center-align p-2 my-4">
+                    <div class="input-field col-12 col-md-6 col-lg-8">
+                        <input type="text" name="taskquery" id="taskquery" class="validate querybox p-2 rounded" minlength="1" placeholder="Search Task Directory" required>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 text-center mt-3 mt-md-0">
+                        <button type="submit" class="btn-purple mediumtext p-2 px-4 mx-2 rounded border-0 btnheight">Search</button>
+                        <a href="{{ url_for('get_tasks') }}" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Reset</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if tasks|length > 0 %}
+        <div class="row">
+            <div class="accordion" id="accordionExample">
+                {% for task in tasks %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{ task.task_id }}">
+                        <button class="accordion-button purple40 mediumtext darktext text-capitalize collapsed text-start" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse{{ task.task_id }}" aria-expanded="false" aria-controls="collapse{{ task.task_id }}">
+                            {{ task.task_name }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ task.task_id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ task.task_id }}"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body purple20">
+                            <p><strong>Task No: </strong>{{ task.task_id }}</p>
+                            {% for project in projects %}
+                                {% if project.project_no|string == task.project_no %}
+                                <p class="text-capitalize"><strong>Project: </strong>{{ project.project_name }}</p>
+                                {% endif %}
+                            {% endfor %}
+                            {% for employee in employees %}
+                                {% if employee.employee_id == task.employee_id %}
+                                <p class="text-capitalize"><strong>Assigned Employee: </strong>{{ employee.first_name }} {{ employee.last_name }}</p>
+                                {% endif %}
+                            {% endfor %}                            
+                            <p><strong>Description: </strong>{{ task.task_description }}</p>
+                            <p><strong>Due Date: </strong>{{ task.due_date }}</p>
+                            <p><strong>Progress:</strong> {{ task.progress }}%</p>
+                            <div class="row mt-4">
+                                <div class="col-12 text-center">
+                                    {% if session["employee"] == "admin@murphyeng.com" %}
+                                    <a href="" onclick="return confirm('Are you sure you want to delete this item?');" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Delete</a>
+                                    {% endif %}
+                                    <a href="{{ url_for('edit_task', task_id=task_id)}}" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        No tasks were found.
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
