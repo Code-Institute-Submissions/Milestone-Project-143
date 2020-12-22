@@ -2,7 +2,7 @@
 
 The idea for my Milestone 3 project was to create a Project Management tool. As an engineering consultant, I work as a project manager or as part of a project team on a daily basis. I find often PM software are overly complex and result in PMs not using the correctly (or at all!) which reduces efficiency and the accuracy of business forecasts and resourcing. I wanted to see if I could create something simplier and more useable. 
 
-The live webpage can be found [here](). Note I have created restrictions based on admin rights. To avail of the admin rights and explore the full functionality of the webpage create a user name beginning with "admin_". 
+The live webpage can be found [here](http://ms3-project-manager-tool.herokuapp.com/index). Note I have created restrictions based on admin rights. To avail of the admin rights and explore the full functionality of the webpage create a user name beginning with "admin_". 
 
 # UX
 
