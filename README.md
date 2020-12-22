@@ -4,52 +4,6 @@ The idea for my Milestone 3 project was to create a Project Management tool. As 
 
 The live webpage can be found [here](). Note I have created restrictions based on admin rights. To avail of the admin rights and explore the full functionality of the webpage create a user name beginning with "admin_". 
 
-## Table of Contents
-1. [UX](#ux)
-    - [Goals](#goals)
-        - [Employee Goals](#employee-goals)
-        - [Project Manager Goals](#project-manager-goals)
-        - [Company Goals](#company-goals)
-    - [User Stories](#user-stories)
-        - [Visitor Stories](#employee-stories)
-        - [Project Manager Stories](#project-manager-stories)
-        - [Company/Admin Stories](#company-stories)
-    - [Design Choices](#design)
-    - [Wireframes](#wireframes)
-    - [Flowchart](#flowchart)
-
-2. [Features](#features)
-    - [Existing Features](#existing-features)
-        - [Elements on every Page](#elements-on-every-page)
-        - [Home Page](#home-page)
-        - ....
-    - [Features Left to Implement](#features-left-to-implement)
-
-3. [Information Architecture](#information-architecture)
-    - [Database choice](#database-choice)
-    - [Data Storage Types](#data-storage-types)
-    - [Collections Data Structure](#collections-data-structure)
-        - [1st Collection](#1st-collection)
-        - ...
-
-4. [Technologies Used](#technologies-used)
-
-5. [Testing](#testing)
-
-6. [Deployment](#deployment)
-    - [Heroku Deployment](#heroku-deployment)
-    - [How to run this project locally](#local-deployment)
-
-7. [Credits](#credits)
-    - [Content](#content)
-    - [Media](#media)
-    - [Code](#code)
-    - [Acknowledgements](#acknowledgements)
-
-8. [Disclaimer](#disclaimer)
-
-----
-
 # UX
 
 ## Goals
@@ -222,40 +176,160 @@ As stated above, a rdms would be have been better suited to the project but as t
 - [Flask](https://flask.palletsprojects.com/en/1.0.x/) to construct and render pages.
 - [Jinja](http://jinja.pocoo.org/docs/2.10/) to display data from the project backend in the rendered html.
 
+## Testing
 
-# Testing 
+#### Code Validation
 
+Each page was ran through the W3C HTML validator, the stylesheet through the CSS validator and the javascript files through JS hint. The following errors were flagged and corrected:
 
+- Images missing alt attribute;
+- Frameborder obselete for iframe;
+- type for javascript sources not required;
+- Missing semicolons and unnesscessary semicolons in JS files;
+
+There was additional warnings for the JavaScript files which highlighted undefined functions and variables, however these are defined in external JS libraries read in prior to the project JS files. There was also some warnings in relation to Internet Explorer compatibility which could not be addressed.
+
+#### Browser Compatibility
+
+The live website, hosted on gitpages, has been opened and tested on multiple browsers for responsives and intended appearance. Browers tested included:
+
+* Google Chrome
+* Safari
+* Microsoft Edge
+* Internet Explorer
+* Firefox
+* Opera
+
+Overall the website worked well and appeared as intended on different sizes across different browsers. 
+
+#### Responsiveness
+
+The website has been tested across multiple screen sizes using [Google Chrome developer tools](https://developers.google.com/web/tools/chrome-devtools) for a range of screen sizes, portrait and landscape, including:
+
+- Moto G4
+- Galaxy S5
+- Pixel 2
+- Pixel 2 XL
+- iPhone 5 SE
+- iPhone 6/7/8
+- iPhone 6/7/8 Plus
+- iPhone X
+- iPad
+- iPad Pro
+
+The screen was also adjusted through various sizes and breakpoints with the responsive option in developer tools. The website was also opened and checked on Samsung A20 & iPhone SE mobile devices as well as Dell xps 15, Lenovo Think Pad and Apple Macbook. The responsiveness was also tested on the browsers outlined above with no noted issues. Overall the website appeared as intended across each screen type. There were some intial errors particularly on iPhone5 screen size (320px width) with overflows of titles. However, an additional media query was added to address this and all screens less than 400px approximately. 
 
 # Deployment
 
-## Local Deployment
+## How to run this project locally
+
+The following **must be installed** on your machine:
+- [PIP](https://pip.pypa.io/en/stable/installing/)
+- [Python 3](https://www.python.org/downloads/)
+- [Git](https://gist.github.com/derhuerst/1b15ff4652a867391f03)
+- An account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) or MongoDB running locally on your machine. 
+    - How to set up your Mongo Atlas account [here](https://docs.atlas.mongodb.com/).
 
 ### Instructions
+1. Save a copy of the github repository located at https://github.com/AJGreaves/familyhub by clicking the "download zip" button at the top of the page and extracting the zip file to your chosen folder. If you have Git installed on your system, you can clone the repository with the following command.
+```
+git clone https://github.com/AJGreaves/familyhub
+```
 
+2. If possible open a terminal session in the unzip folder or cd to the correct location.
+
+3. A virtual environment is recommended for the Python interpreter, I recommend using Pythons built in virtual environment. Enter the command:
+```
+python -m .venv venv
+```  
+_NOTE: Your Python command may differ, such as python3 or py_
+
+4. Activate the .venv with the command:
+```
+.venv\Scripts\activate 
+```
+_Again this **command may differ depending on your operating system**, please check the [Python Documentation on virtual environments](https://docs.python.org/3/library/venv.html) for further instructions._
+
+4. If needed, Upgrade pip locally with
+```
+pip install --upgrade pip.
+```
+
+5. Install all required modules with the command 
+```
+pip -r requirements.txt.
+```
+
+6. In your local IDE create a file called `.env`.
+
+7. Inside the .env file, create a SECRET_KEY variable and a MONGO_URI to link to your own database and links to AWS server.
+
+8. You can now run the application with the command
+```
+python app.py
+```
+
+9. You can visit the website at `http://127.0.0.1:5000`
 
 ## Heroku Deployment
+
+To deploy the website to heroku, take the following steps:
+
+1. Create a `requirements.txt` file using the terminal command `pip freeze > requirements.txt`.
+
+2. Create a `Procfile` with the terminal command `echo web: python app.py > Procfile`.
+
+3. `git add` and `git commit` the new requirements and Procfile and then `git push` the project to GitHub.
+
+3. Create a new app on the [Heroku website](https://dashboard.heroku.com/apps) by clicking the "New" button in your dashboard. Give it a name and set the region to Europe.
+
+4. From the heroku dashboard of your newly created application, click on "Deploy" > "Deployment method" and select GitHub.
+
+5. Confirm the linking of the heroku app to the correct GitHub repository.
+
+6. In the heroku dashboard for the application, click on "Settings" > "Reveal Config Vars".
+
+7. Set the following config vars:
+
+| Key | Value |
+ --- | ---
+DEBUG | FALSE
+IP | 0.0.0.0
+MONGO_URI | `mongodb+srv://<username>:<password>@<cluster_name>-qtxun.mongodb.net/<database_name>?retryWrites=true&w=majority`
+PORT | 5000
+SECRET_KEY | mongodb secret key generated by user
+S3_SECRET_ACCESS_KEY| AWS key
+S3_ACCESS_KEY | aws key
+
+- To get you MONGO_URI read the MongoDB Atlas documentation [here](https://docs.atlas.mongodb.com/)
+
+8. In the heroku dashboard, click "Deploy".
+
+9. In the "Manual Deployment" section of this page, made sure the master branch is selected and then click "Deploy Branch".
+
+10. The site is now successfully deployed.
 
 # Credits
 
 ## Content
 
-- The text, images, links and other data in the database was sourced from various local websites including but not limited to:
+- The content is by and large created by me but I did source free to use images for employ profile on unsplash credits listed below. 
 
-    - ....
+- Robert: Photo by Ali Morshedlou on Unsplash
+- Ruth: Photo by Annika Palmari on Unsplash
+- John: Photo by Dragos Gontariu on Unsplash
+- Graham: Photo by Austin Wade on Unsplash
+- Sinead: Photo by Christopher Campbell on Unsplash
+- barry: Photo by Robert Godwin on Unsplash
+- Ian: Photo by bantersnaps on Unsplash
+- Brian: Photo by Joseph Gonzalez on Unsplash
+- Sheelagh: Photo by Patrik Velich on Unsplash
 
-- ....
+Though heavily adapted I did refer extensively to the task manager example within the course as part of my project. 
 
-## Media
+### Acknowledgements
 
-### Images
-- 
-
-## Code
-
--.... 
-
-## Acknowledgements
+I'd like to thank my mentor, Precious Ijege, for his time, advice and patience on this project. I should also thank various friends and family member who took time to review and provide feedback
 
 ## Disclaimer
 The content of this website is educational purposes only.
