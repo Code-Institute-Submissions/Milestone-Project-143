@@ -60,7 +60,13 @@
                                 <i class="far fa-id-card align-middle largeicon"></i>
                             </div>
                             <div class="col-11 p-0 px-1">
-                                <input type="number" name="manager_id" pattern="^[0-9]{1,5}$" class="form-control" id="manager_id" placeholder="Manager's ID" minlength="1" maxlength="5" required>
+
+                                <select class="form-select" aria-label="Default select example" id="manager_id" name="manager_id" required>
+                                    <option selected>Manager's ID</option>
+                                    {% for i in employees %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                         <!--Job Title-->

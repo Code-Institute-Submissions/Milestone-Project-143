@@ -53,6 +53,7 @@ def get_projects():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    employees = mongo.db.employees.distinct("employee_id")
     if request.method == "POST":
         # check if email already exists within db
         existing_email = mongo.db.employees.find_one(
@@ -93,7 +94,8 @@ def register():
         session["employee"] = request.form.get("email").lower()
         flash("Registration Successful!")
         return redirect(url_for("profile", email=session["employee"]))
-    return render_template("register.html")
+    print(employees)
+    return render_template("register.html", employees=employees)
 
 
 @app.route("/add_client", methods=["GET", "POST"])
