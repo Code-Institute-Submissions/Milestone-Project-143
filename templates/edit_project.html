@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-
+<!--full width container-->
 <div class="container-fluid">
+    <!--Main Content-->
     <div class="container">
+        <!--Edit Client Form-->
         <div class="row mt-5">
             <div class="accordion" id="accordionNewProject">
                 <div class="accordion-item">
@@ -44,6 +46,7 @@
                                             <i class="fas fa-id-card align-middle largeicon"></i>
                                         </div>
                                         <div class="col-11 p-0 px-1">
+                                            <!-- loops through to get client name based on id and assign selected-->
                                             <select class="form-select text-capitalize" aria-label="Default select example" id="client_id" name="client_id" required>
                                                 {% for client in clients %}
                                                     {% if project.client_id == client.client_id%}

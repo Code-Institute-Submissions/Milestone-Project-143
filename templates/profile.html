@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+<!--Full width container-->
 <div class="container-fluid">
     <div class="container container-profile">
         <div class="row py-5">
+            <!--first column employee profile-->
             <div class="col-12 col-md-4 col-lg-3 p-0">
                 <div class="col-12 boxoverlay purple40 mb-1">
                     <div class="text-center pt-2">
@@ -37,8 +39,10 @@
                     </div>
                 </div>
             </div>
+            <!--Combined Projects and tasks-->
             <div class="col-12 col-md-8 col-lg-9 p-0">
                 <div class="row p-0 m-0">
+                    <!--Project Info Section-->
                     <div class="col-12 col-lg-7 p-0">
                         <div class="row pt-4 pt-md-0 m-0 px-md-2">
                             <div class="col-12 boxoverlay pt-2 green40">
@@ -47,6 +51,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!--Project the employee manages-->
                         {% for project in projects %}
                             {% if project.project_manager_id == employee_id %}
                             <div class="row py-1 px-md-2 m-0">
@@ -82,6 +87,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!--Project the employee is part of the team-->
                         {% for project in projects %}
                             {% if employee_id in project.team and employee_id != project.project_manager_id %}
                             <div class="row py-1 px-md-2 m-0">
@@ -107,6 +113,7 @@
                             {% endif %}
                         {% endfor %}
                     </div>
+                    <!--Task Info Section-->
                     <div class="col-12 col-lg-5">
                         <div class="row pb-1 pt-0 px-md-2 px-lg-0">
                             <div class="col-12 boxoverlay pt-2 blue60">
@@ -118,7 +125,6 @@
                             <div class="row pb-1 pt-0 px-md-2 px-lg-0">
                                 <div class="col-12 boxoverlay blue60">
                                     <h4 class="smalltext my-1 darktext">To Do</h4>
-                                    <hr class="my-1">
                                 </div>
                             </div>
                             {% for task in tasks %}
@@ -141,7 +147,6 @@
                             <div class="row py-1 px-md-2 px-lg-0">
                                 <div class="col-12 boxoverlay blue60">
                                     <h4 class="smalltext my-1 darktext">In Progress</h4>
-                                    <hr class="my-1">
                                 </div>
                             </div>
                             {% for task in tasks %}
@@ -165,7 +170,6 @@
                             <div class="row py-1 px-md-2 px-lg-0">
                                 <div class="col-12 boxoverlay blue60">
                                     <h4 class="smalltext my-1 darktext">Complete</h4>
-                                    <hr class="my-1">
                                 </div>
                             </div>
                             {% for task in tasks %}

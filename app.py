@@ -121,6 +121,7 @@ def register():
 # Client Directory
 @app.route("/clients")
 def clients():
+    # create lists to pass to template
     clients = list(mongo.db.clients.find())
     projects = list(mongo.db.projects.find())
     print(clients)
@@ -194,6 +195,7 @@ def client_search():
 # Project Directory
 @app.route("/get_projects")
 def get_projects():
+    #create lists to pass to template
     clients = list(mongo.db.clients.find())
     projects = list(mongo.db.projects.find())
     employees = list(mongo.db.employees.find({}, {"password": 0}))
@@ -206,6 +208,7 @@ def get_projects():
 @app.route("/add_project", methods=["GET", "POST"])
 def add_project():
     # Insert Info into Mondo DB
+    # project converted to int to match db type
     project_no = list(mongo.db.projects.distinct("project_no"))
     project_no_int = list(map(int, project_no))
     project_no_int.sort()
@@ -242,6 +245,7 @@ def project_search():
 # Edit Project Functionality and page rendering
 @app.route("/edit_project/<project_no>", methods=["GET", "POST"])
 def edit_project(project_no):
+    #convert string to int as per db
     int_project_no = int(project_no)
     if request.method == "POST":
         # Insert Info into Mondo DB
@@ -262,6 +266,7 @@ def edit_project(project_no):
                                  projectregister)
         flash("Project Update Successful!")
         return redirect(url_for("get_projects"))
+    #create lists to pass to templates
     clients = list(mongo.db.clients.find())
     employees = list(mongo.db.employees.find({}, {"password": 0}))
     project = mongo.db.projects.find_one({"project_no": int_project_no})
@@ -273,6 +278,7 @@ def edit_project(project_no):
 # Delete Project - Admin & PM Only
 @app.route("/delete_project/<project_no>")
 def delete_project(project_no):
+    # convert to int to match db
     int_project_no = int(project_no)
     mongo.db.projects.remove({"project_no": int_project_no})
     flash("Project Successfully Deleted")
@@ -282,6 +288,7 @@ def delete_project(project_no):
 # Employee Directory
 @app.route("/get_employees")
 def get_employees():
+    #create list to pass to template
     managers = list(mongo.db.employees.find({}, {"password": 0}))
     employees = list(mongo.db.employees.find({}, {"password": 0}))
     return render_template("employees.html",
@@ -390,7 +397,6 @@ def profile(email):
 
 
 # Tasks Directory
-# Project Directory
 @app.route("/get_tasks")
 def get_tasks():
     tasks = list(mongo.db.tasks.find())
@@ -491,4 +497,4 @@ def logout():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True)  # Change to false below submission
+            debug=False)

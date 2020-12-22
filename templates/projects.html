@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-
+<!--Full width container-->
 <div class="container-fluid">
+    <!--main content-->
     <div class="container">
         <div class="row mt-5 text-center">
             <h1 class="largetext darktext">Project Directory</h1>
             <hr>
         </div>
+        <!--Add new project-->
         <div class="row">
             <div class="accordion" id="accordionNewProject">
                 <div class="accordion-item">
@@ -128,6 +130,7 @@
                 </div>
             </div>
         </div>
+        <!--Search for project-->
         <div class="row">
             <form class="col-12" method="POST" action="{{ url_for('project_search') }}">
                 <div class="row center-align p-2 my-4">
@@ -142,6 +145,7 @@
                 </div>
             </form>
         </div>
+        <!--list of project and search results-->
         {% if projects|length > 0 %}
         <div class="row">
             <div class="accordion" id="accordionExample">
@@ -191,6 +195,7 @@
             </div>
         </div>
         {% else %}
+        <!--No results return from search-->
         No projects were found.
         {% endif %}
     </div>

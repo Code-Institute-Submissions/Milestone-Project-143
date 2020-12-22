@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-
+<!--Full width container-->
 <div class="container-fluid">
     <div class="container">
         <div class="row mt-5 text-center">
             <h1 class="largetext darktext">Employee Directory</h1>
             <hr>
         </div>
+        <!--Search for employee-->
         <div class="row">
             <form class="col-12" method="POST" action="{{ url_for('employee_search') }}">
                 <div class="row center-align p-2 my-4">
@@ -20,6 +21,7 @@
                 </div>
             </form>
         </div>
+        <!--list of employees and search results-->
         {% if employees|length > 0 %}
         <div class="row">
             <div class="accordion" id="accordionExample">
@@ -62,6 +64,7 @@
             </div>
         </div>
         {% else %}
+        <!--No results return from search-->
         No employees were found.
         {% endif %}
     </div>

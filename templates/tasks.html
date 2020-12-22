@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-
+<!--Full width container-->
 <div class="container-fluid">
+    <!--main content-->
     <div class="container">
         <div class="row mt-5 text-center">
             <h1 class="largetext darktext">Tasks Directory</h1>
             <hr>
         </div>
+        <!--Add new task-->
         <div class="row">
             <div class="accordion" id="accordionNewProject">
                 <div class="accordion-item">
@@ -118,6 +120,7 @@
                 </div>
             </div>
         </div>
+        <!--Search for task-->
         <div class="row">
             <form class="col-12" method="POST" action="{{ url_for('task_search') }}">
                 <div class="row center-align p-2 my-4">
@@ -131,6 +134,7 @@
                 </div>
             </form>
         </div>
+        <!--list of tasks and search results-->
         {% if tasks|length > 0 %}
         <div class="row">
             <div class="accordion" id="accordionExample">
@@ -165,10 +169,10 @@
                                     <a href="{{ url_for('delete_task', task_id=task.task_id) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Delete</a>
                                     {% endif %}
                                     {% for employee in employees %}
-                                        {% if employee.employee_id == task.employee_id %}
+                                        {% if employee.employee_id == task.employee_id and  session["employee"] == employee.email %}
                                         <a href="{{ url_for('delete_task', task_id=task.task_id) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Delete</a>
                                         {% endif %}
-                                    {% endfor %}
+                                    {% endfor %} 
                                     <a href="{{ url_for('edit_task', task_id=task_id)}}" class="btn-purple btnlink mediumtext p-2 px-4 mx-2 rounded">Edit</a>
                                 </div>
                             </div>

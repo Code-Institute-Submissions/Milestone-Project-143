@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-
+<!--full width container-->
 <div class="container-fluid">
+    <!--Main Content-->
     <div class="container">
+        <!--Edit Employee Form-->
         <div class="row mt-5">
             <div class="accordion" id="accordionNewProject">
                 <div class="accordion-item">
@@ -52,6 +54,7 @@
                                             <i class="far fa-id-card align-middle largeicon"></i>
                                         </div>
                                         <div class="col-11 p-0 px-1">
+                                            <!-- loops through to get manager's name based on id and assign selected-->
                                             <select class="form-select text-capitalize" aria-label="Default select example" id="manager_id" name="manager_id" required>
                                                 {% for manager in managers%}
                                                     {% if employee.manager_id == manager.employee_id%}
@@ -104,7 +107,7 @@
                                         <div class="col-12 text-center">
                                             <button type="submit"
                                                 class="btn btn-purple mediumtext">
-                                                Update Project <i class="fas fa-plus"></i>
+                                                Update Employee <i class="fas fa-plus"></i>
                                             </button>
                                         </div>
                                     </div>

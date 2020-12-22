@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-
+<!--Full width container-->
 <div class="container-fluid">
     <div class="row px-0">
+        <!--heroimage background-->
         <div class="heroimage p-0">
             <div class="px-0">
                 <form class="card col-10 offset-1 col-md-6 offset-md-3 overlay" method="POST"
@@ -19,7 +20,7 @@
                                     placeholder="john.doe@murphyeng.com">
                             </div>
                         </div>
-                        <!--Create Password Input-->
+                        <!--Enter Password Input-->
                         <div class="mb-5 row">
                             <div class="col-1 text-center p-0">
                                 <i class="fas fa-lock align-middle largeicon"></i>
@@ -30,13 +31,14 @@
                                     maxlength="15" required>
                             </div>
                         </div>
-                        <!--Registration Submit Button-->
+                        <!--Login Submit Button-->
                         <div class="row">
                             <button type="submit"
                                 class="btn btn-purple col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mediumtext">
                                 Log In <i class="fas fa-sign-in-alt"></i>
                             </button>
                         </div>
+                        <!--link back to registration page-->
                         <div class="row text-center pt-3">
                             <div class="col-10 offset-1 smalltext">Not Registered? Please click <a class="embeddedlink"
                                     href="{{ url_for('register')}}">here</a>.</div>
