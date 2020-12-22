@@ -5,6 +5,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from bson.objectid import ObjectId
 import boto3
 if os.path.exists("env.py"):
     import env
@@ -189,10 +190,48 @@ def client_search():
     clients = list(mongo.db.clients.find({"$text": {"$search": query}}))
     return render_template("client.html", clients=clients)
 
+
 # Project Directory
 @app.route("/get_projects")
 def get_projects():
-    projects = mongo.db.projects.find()
+    clients = list(mongo.db.clients.find())
+    projects = list(mongo.db.projects.find())
+    employees = list(mongo.db.employees.find({}, {"password": 0}))
+    return render_template("projects.html",
+                           projects=projects,
+                           clients=clients, employees=employees)
+
+
+# Add project Functionality
+@app.route("/add_project", methods=["GET", "POST"])
+def add_project():
+    # Insert Info into Mondo DB
+    project_no = list(mongo.db.projects.distinct("project_no"))
+    project_no_int = list(map(int, project_no))
+    project_no_int.sort()
+    new_project_no = project_no_int[-1] + 1
+    projectregister = {
+            "project_no": new_project_no,
+            "project_name": request.form.get("project_name").lower(),
+            "project_description":
+            request.form.get("project_description").lower(),
+            "client_id": request.form.get("client_id"),
+            "project_manager_id": request.form.get("manager_id"),
+            "team": request.form.getlist("team"),
+            "start_date": request.form.get("startdate"),
+            "end_date": request.form.get("enddate"),
+            "fee":  request.form.get("fee")
+    }
+    mongo.db.projects.insert_one(projectregister)
+    flash("Registration Successful!")
+    return redirect(url_for("get_projects"))
+
+
+# Project Search Query
+@app.route("/project_search", methods=["GET", "POST"])
+def project_search():
+    query = request.form.get("projectquery")
+    projects = list(mongo.db.projects.find({"$text": {"$search": query}}))
     return render_template("projects.html", projects=projects)
 
 
